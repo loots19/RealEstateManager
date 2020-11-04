@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Media"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_detail"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:listitem="@layout/item_rv_detail" />
+
+    <TextView
+        android:id="@+id/tv_desc_detail"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Description\ntest"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_detail" />
+
+    <ImageView
+        android:id="@+id/imageView_surface"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="350dp"
+        android:src="@drawable/clipart3584701"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc_detail" />
+
+    <TextView
+        android:id="@+id/tv_surface_detail"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="180dp"
+        android:text="Surface\ntest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_surface"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc_detail" />
+
+    <ImageView
+        android:id="@+id/imageView_nbr_rooms"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="350dp"
+        android:src="@drawable/home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_surface_detail" />
+
+    <TextView
+        android:id="@+id/tv_nbrRooms_detail"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="180dp"
+        android:text="Number of rooms\ntest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_nbr_rooms"
+        app:layout_constraintTop_toBottomOf="@+id/tv_surface_detail" />
+
+    <ImageView
+        android:id="@+id/imageView_date"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginTop="75dp"
+        android:src="@drawable/calendar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_nbrRooms_detail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_location_detail" />
+
+    <TextView
+        android:id="@+id/tv_date_detail"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="40dp"
+        android:text="Date\ntest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_location_detail" />
+
+    <ImageView
+        android:id="@+id/imageView_location"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="200dp"
+        android:src="@drawable/location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_surface_detail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc_detail" />
+
+    <TextView
+        android:id="@+id/tv_location_detail"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:text="Location\ntest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_location"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc_detail" />
+
+    <ImageView
+        android:id="@+id/imageView_nbr_bath"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="350dp"
+        android:src="@drawable/bathtub"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_nbr_rooms" />
+
+    <TextView
+        android:id="@+id/tv_nbrBath_detail"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="180dp"
+        android:text="Number of bathrooms\ntest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_nbr_bath"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nbrRooms_detail" />
+
+    <ImageView
+        android:id="@+id/imageView_nbr_bed"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="350dp"
+        android:src="@drawable/bed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_nbr_bath" />
+
+    <TextView
+        android:id="@+id/tv_nbrBed_detail"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="180dp"
+        android:text="Number of bedrooms\ntest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_nbr_bed"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nbrBath_detail" />
+
+    <ImageView
+        android:id="@+id/imageView_price"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="350dp"
+        android:src="@drawable/dollar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_nbr_bed" />
+
+    <TextView
+        android:id="@+id/tv_price_detail"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="180dp"
+        android:text="Price\ntest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_price"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nbrBed_detail" />
+
+    <ImageView
+        android:id="@+id/imageView_agent"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="350dp"
+        android:src="@drawable/real_estate_agent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_price" />
+
+    <TextView
+        android:id="@+id/tv_agent_detail"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="180dp"
+        android:text="Manage by\ntest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_agent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_price_detail" />
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout_detail_activity"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/map"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nbrBed_detail" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="activity_main_margin_FrameLayout">55dp</dimen>
+
+
+    <!-- HEADER LAYOUT -->
+    <dimen name="header_constraint_layout_layout_height">210dp</dimen>
+    <dimen name="header_text_view_margin_top">30dp</dimen>
+    <dimen name="header_text_view_text_size">25sp</dimen>
+    <dimen name="header_margin_start">10dp</dimen>
+    <dimen name="header_constraint_layout_image">70dp</dimen>
 </resources>
