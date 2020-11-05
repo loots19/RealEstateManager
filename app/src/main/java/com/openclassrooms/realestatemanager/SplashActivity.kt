@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
             startActivity(Intent(this@SplashActivity, MainActivity:: class.java))
             // finish this activity
             finish()
-        },3000)
+        },2000)
 
 
 

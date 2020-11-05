@@ -1,13 +1,32 @@
 <resources>
     <string name="app_name">RealEstateManager</string>
+    <string name="splash_text">Let\'s sel</string>
 
     <!-- BOTTOM NAVIGATION VIEW -->
     <string name="bottom_navigation_menu_listView">ListView</string>
     <string name="bottom_navigation_menu_search">Search</string>
     <string name="bottom_navigation_menu_map">MapView</string>
 
+    <!-- menu drawer -->
+    <string name="menu_create">CREATE A PROPERTY</string>
+    <string name="menu_conversion">CONVERSION</string>
+    <string name="menu_simulator">CREDIT SIMULATOR</string>
+
     <!-- Used in NavigationDrawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Activity detail -->
+    <string name="textView_media">Media</string>
+    <string name="tv_description_detail">Description</string>
+    <string name="tv_surface_detail">Surface</string>
+    <string name="tv_nbrRooms_detail">Numbers of rooms\n test</string>
+    <string name="tv_date_detail">Date</string>
+    <string name="tv_location_detail">Location</string>
+    <string name="tv_nbrBath_detail">Numbers of bathrooms</string>
+    <string name="tv_nbrBed_detail">Numbers of bedrooms</string>
+    <string name="tv_price_detail">Price</string>
+    <string name="tv_agent_detail">Manage by</string>
+
 
 </resources>
