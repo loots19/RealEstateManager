@@ -13,12 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".FullScreenActivity"></activity>
-        <activity android:name=".CreateProperty"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".SimulatorActivity"></activity>
+        <activity android:name=".FullScreenActivity" />
+        <activity android:name=".CreateProperty" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".DetailActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar">

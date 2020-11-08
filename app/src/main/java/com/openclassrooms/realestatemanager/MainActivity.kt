@@ -74,11 +74,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.price_conversion -> {
                 Toast.makeText(this, "U have to convert someThing", LENGTH_SHORT).show()
-
+                startActivity(Intent(this@MainActivity, DetailActivity::class.java))
             }
             R.id.simulator -> {
                 // start detail activity for test
-                startActivity(Intent(this@MainActivity, DetailActivity::class.java))
+                startActivity(Intent(this@MainActivity, SimulatorActivity::class.java))
                 Toast.makeText(this, "U have to pay someThing", LENGTH_SHORT).show()
 
             }

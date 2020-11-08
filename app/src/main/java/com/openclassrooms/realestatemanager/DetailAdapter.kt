@@ -42,9 +42,7 @@ class DetailAdapter(
             intent.putExtra("iImage",dImageView)
             context.startActivity(intent)
 
-
         }
-
 
     }
 

@@ -1,9 +1,8 @@
 package com.openclassrooms.realestatemanager
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
 
 class FullScreenActivity : AppCompatActivity() {
 
@@ -15,7 +14,7 @@ class FullScreenActivity : AppCompatActivity() {
 
 
         var intent = intent
-        val dImage = intent.getIntExtra("iImage",0)
+        val dImage = intent.getIntExtra("iImage", 0)
         ivFullScreen.setImageResource(dImage)
 
     }
