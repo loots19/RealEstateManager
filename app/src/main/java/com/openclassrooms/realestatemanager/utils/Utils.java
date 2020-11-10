@@ -21,7 +21,7 @@ public class Utils {
      * @return
      */
     public static int convertDollarToEuro(int dollars){
-        return (int) Math.round(dollars * 0.812);
+        return (int) Math.round(dollars * 0.844802);
     }
     /**
      * Conversion d'un prix d'un bien immobilier (Euros vers Dollars)
@@ -29,7 +29,7 @@ public class Utils {
      * @return
      */
     public static int convertEuroToDollars(int euros){
-        return (int) Math.round(euros / 0.812);
+        return (int) Math.round(euros / 0.844802);
     }
 
     /**

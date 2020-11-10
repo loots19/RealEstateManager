@@ -74,10 +74,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.create_property -> {
                 startActivity(Intent(this@MainActivity, CreateProperty::class.java))
-                Toast.makeText(this, "U have to create someThing", LENGTH_SHORT).show()
             }
             R.id.price_conversion -> {
-                Toast.makeText(this, "U have to convert someThing", LENGTH_SHORT).show()
                 startActivity(Intent(this@MainActivity, ConversionActivity::class.java))
             }
             R.id.simulator -> {

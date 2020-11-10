@@ -51,5 +51,6 @@
     <string name="et_amount_conversion">enter your amount</string>
     <string name="tv_amount_conversion">Amount</string>
     <string name="tv_tittle_conversion">XE currency converter: 1 USD to EUR = 0.844802 Euros</string>
+    <string name="euro">Euros</string>
 
 </resources>
