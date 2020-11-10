@@ -14,7 +14,7 @@ class AdapterList(private val context: Context, private val images: List<Image>)
     : RecyclerView.Adapter<AdapterList.ViewHolder>() {
 
 
-    // Usually involves inflating a layout from XML and returning the holder - THIS IS EXPENSIVE
+    // Usually involves inflating a layout from XML and returning the holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list, parent, false))
@@ -23,7 +23,7 @@ class AdapterList(private val context: Context, private val images: List<Image>)
     // Returns the total count of items in the list
     override fun getItemCount() = images.size
 
-    // Involves populating data into the item through holder - NOT expensive
+    // Involves populating data into the item through holder
     override fun onBindViewHolder(holder: AdapterList.ViewHolder, position: Int) {
         val contact = images[position]
         holder.bind(contact)

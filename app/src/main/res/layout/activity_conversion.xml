@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/margin_start_conversion"
+    android:layout_marginEnd="@dimen/margin_end_conversion"
+    android:layout_marginBottom="@dimen/margin_end_conversion"
+    tools:context=".ConversionActivity">
+
+
+    <TextView
+        android:id="@+id/tv_conversion_tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_tittle_conversion"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/view_conversion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_conversion"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/iv_layout_height_conversion"
+        android:background="#EAE8E7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_conversion"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:text="@string/tv_amount_conversion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_conversion" />
+
+    <EditText
+        android:id="@+id/et_amount_conversion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_conversion"
+        android:background="@drawable/oval"
+        android:backgroundTint="@android:color/white"
+        android:gravity="center"
+        android:hint="@string/et_amount_conversion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        tools:ignore="Autofill,TextFields,UnusedAttribute" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="@dimen/view_layout_width_conversion"
+        android:layout_height="@dimen/view_layout_height_conversion"
+        android:layout_marginStart="@dimen/margin_start_conversion"
+        android:layout_marginTop="@dimen/margin_top_conversion"
+        android:background="@drawable/oval"
+        android:backgroundTint="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_amount_conversion"
+        tools:ignore="UnusedAttribute" />
+
+    <ImageView
+        android:id="@+id/iv_usd_conversion"
+        android:layout_width="@dimen/iv_draw"
+        android:layout_height="@dimen/iv_draw"
+        android:layout_marginStart="@dimen/margin_start_conversion"
+        android:background="@drawable/united_states"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textViewUsd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_usd"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/iv_usd_conversion"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <Button
+        android:id="@+id/btn_dollars_euro"
+        android:layout_width="@dimen/btn_wh"
+        android:layout_height="@dimen/btn_wh"
+        android:background="@drawable/next"
+        android:backgroundTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/view1"
+        app:layout_constraintEnd_toStartOf="@+id/view1"
+        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view1"
+        tools:ignore="UnusedAttribute" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="@dimen/view_layout_width_conversion"
+        android:layout_height="@dimen/view_layout_height_conversion"
+        android:layout_marginTop="@dimen/margin_top_conversion"
+        android:layout_marginEnd="@dimen/margin_end_conversion"
+        android:background="@drawable/oval"
+        android:backgroundTint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_amount_conversion"
+        tools:ignore="UnusedAttribute" />
+
+    <ImageView
+        android:id="@+id/iv_eur_conversion"
+        android:layout_width="@dimen/iv_draw"
+        android:layout_height="@dimen/iv_draw"
+        android:layout_marginStart="@dimen/margin_start_conversion"
+        android:background="@drawable/european_union"
+        app:layout_constraintBottom_toBottomOf="@+id/view1"
+        app:layout_constraintStart_toStartOf="@+id/view1"
+        app:layout_constraintTop_toTopOf="@+id/view1"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_eur_conversion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_eur"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view1"
+        app:layout_constraintEnd_toEndOf="@+id/view1"
+        app:layout_constraintStart_toEndOf="@+id/iv_eur_conversion"
+        app:layout_constraintTop_toTopOf="@+id/view1" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="@dimen/view_layout_width_conversion"
+        android:layout_height="@dimen/view_layout_height_conversion"
+        android:layout_marginStart="@dimen/margin_start_conversion"
+        android:layout_marginTop="@dimen/margin_top_conversion"
+        android:background="@drawable/oval"
+        android:backgroundTint="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        tools:ignore="UnusedAttribute" />
+
+    <Button
+        android:id="@+id/btn_euro_dollar"
+        android:layout_width="@dimen/btn_wh"
+        android:layout_height="@dimen/btn_wh"
+        android:background="@drawable/next"
+        android:backgroundTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toStartOf="@+id/view3"
+        app:layout_constraintStart_toEndOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="@+id/view3"
+        tools:ignore="UnusedAttribute" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="@dimen/view_layout_width_conversion"
+        android:layout_height="@dimen/view_layout_height_conversion"
+        android:layout_marginTop="@dimen/margin_top_conversion"
+        android:layout_marginEnd="@dimen/margin_end_conversion"
+        android:background="@drawable/oval"
+        android:backgroundTint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view1"
+        tools:ignore="UnusedAttribute" />
+
+    <ImageView
+        android:id="@+id/iv_eur_con"
+        android:layout_width="@dimen/iv_draw"
+        android:layout_height="@dimen/iv_draw"
+        android:layout_marginStart="@dimen/margin_start_conversion"
+        android:background="@drawable/european_union"
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="@+id/view2"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_eur_conversion1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_eur"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="@+id/view2"
+        app:layout_constraintStart_toEndOf="@+id/iv_eur_con"
+        app:layout_constraintTop_toTopOf="@+id/view2" />
+
+    <ImageView
+        android:id="@+id/iv_usd_conversion1"
+        android:layout_width="@dimen/iv_draw"
+        android:layout_height="@dimen/iv_draw"
+        android:layout_marginStart="@dimen/margin_start_conversion"
+        android:background="@drawable/united_states"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toTopOf="@+id/view3"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textViewUsd1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_usd"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toEndOf="@+id/iv_usd_conversion1"
+        app:layout_constraintTop_toTopOf="@+id/view3" />
+
+
+    <TextView
+        android:id="@+id/tv_result_conversion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_conversion"
+        android:textSize="@dimen/tv_size_result"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view_conversion"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/view4_height"
+        android:layout_marginStart="@dimen/margin_start_conversion"
+        android:layout_marginEnd="@dimen/margin_end_conversion"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tv_bottom_conversion"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/tv_size_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view4" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

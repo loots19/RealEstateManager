@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -16,6 +17,9 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.openclassrooms.realestatemanager.detailActivity.DetailActivity
+import com.openclassrooms.realestatemanager.fragment.ListFragment
+import com.openclassrooms.realestatemanager.fragment.MapsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -74,12 +78,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.price_conversion -> {
                 Toast.makeText(this, "U have to convert someThing", LENGTH_SHORT).show()
-                startActivity(Intent(this@MainActivity, DetailActivity::class.java))
+                startActivity(Intent(this@MainActivity, ConversionActivity::class.java))
             }
             R.id.simulator -> {
-                // start detail activity for test
                 startActivity(Intent(this@MainActivity, SimulatorActivity::class.java))
-                Toast.makeText(this, "U have to pay someThing", LENGTH_SHORT).show()
 
             }
         }
@@ -95,14 +97,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, "U have to search someThing", LENGTH_SHORT).show()
             }
             R.id.edit -> {
+                // start detail activity for test
+                startActivity(Intent(this@MainActivity, DetailActivity::class.java))
 
-                Toast.makeText(this, "U have to edit someThing", LENGTH_SHORT).show()
             }
 
         }
         return super.onOptionsItemSelected(item)
     }
-
+    // initialize toolBar
     private fun configureToolbar() {
         setSupportActionBar(toolbar as Toolbar?)
     }

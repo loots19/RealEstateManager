@@ -28,5 +28,28 @@
     <string name="tv_price_detail">Price</string>
     <string name="tv_agent_detail">Manage by</string>
 
+    <!-- Avtivity Simulator -->
+    <string name="tittle_simulator">Monthly payments of your mortgage</string>
+    <string name="tv_amount">Amount of your loan</string>
+    <string name="tv_time">Duration of your loan</string>
+    <string name="tv_percent">Interest rate before negotiation</string>
+    <string name="tv_insurance">Insurance rate</string>
+    <string name="tv_tittle_result">Your monthly payment will be</string>
+    <string name="tv_result">dollars/month</string>
+    <string name="bt_calculation">CALCULATION</string>
+    <string name="dollars">dollars</string>
+    <string name="Years">Years</string>
+    <string name="toast_amount">you have to select amount</string>
+    <string name="toast_period">you have to select period</string>
+    <string name="toast_percent">you have to select percent</string>
+    <string name="tv_total_payments">Your total payments will be</string>
+
+    <!-- conversion activity -->
+    <string name="tv_bottom_conversion">All figures are mid-market rates, which are not available to consumers and are given for information only.</string>
+    <string name="tv_usd">USD</string>
+    <string name="tv_eur">EUR</string>
+    <string name="et_amount_conversion">enter your amount</string>
+    <string name="tv_amount_conversion">Amount</string>
+    <string name="tv_tittle_conversion">XE currency converter: 1 USD to EUR = 0.844802 Euros</string>
 
 </resources>

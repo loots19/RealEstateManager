@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.detailActivity
 
 data class Image (val image:Int,
                   val text:String)

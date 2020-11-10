@@ -35,6 +35,20 @@
     <dimen name="layout_width_splash">300dp</dimen>
     <dimen name="text_size_splash">26sp</dimen>
 
+    <!-- conversion activity -->
+    <dimen name="margin_start_conversion">10dp</dimen>
+    <dimen name="margin_end_conversion">10dp</dimen>
+    <dimen name="margin_top_conversion">30dp</dimen>
+    <dimen name="iv_layout_height_conversion">700dp</dimen>
+    <dimen name="view_layout_width_conversion">150dp</dimen>
+    <dimen name="view_layout_height_conversion">70dp</dimen>
+    <dimen name="iv_draw">50dp</dimen>
+    <dimen name="btn_wh">40dp</dimen>
+    <dimen name="tv_size_bottom">20sp</dimen>
+    <dimen name="view4_height">200dp</dimen>
+    <dimen name="tv_size_result">35sp</dimen>
+
+
 
 
 
