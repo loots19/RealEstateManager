@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import butterknife.BindView
 import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
 import kotlinx.android.synthetic.main.item_rv_detail.view.*
@@ -17,6 +18,9 @@ class DetailAdapter(
         val context: Context,
         private val listener: (Image) -> Unit
 ) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
+
+    @BindView(R.id.iv_item_detail)
+    lateinit var ivPhoto : ImageView
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

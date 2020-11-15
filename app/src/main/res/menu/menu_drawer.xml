@@ -12,6 +12,10 @@
             android:id="@+id/simulator"
             android:icon="@drawable/cashback"
             android:title="@string/menu_simulator"/>
+        <item
+            android:id="@+id/logOut"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="@string/bottom_navigation_menu_logout"/>
     </group>
 
 </menu>

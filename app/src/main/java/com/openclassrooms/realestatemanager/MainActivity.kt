@@ -2,21 +2,22 @@ package com.openclassrooms.realestatemanager
 
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.firebase.ui.auth.AuthUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.openclassrooms.realestatemanager.auth.AuthActivity
 import com.openclassrooms.realestatemanager.detailActivity.DetailActivity
 import com.openclassrooms.realestatemanager.fragment.ListFragment
 import com.openclassrooms.realestatemanager.fragment.MapsFragment
@@ -82,6 +83,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(Intent(this@MainActivity, SimulatorActivity::class.java))
 
             }
+            R.id.logOut -> {
+                alertLogOut()
+
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -92,7 +97,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.search -> {
-                Toast.makeText(this, "U have to search someThing", LENGTH_SHORT).show()
+
             }
             R.id.edit -> {
                 // start detail activity for test
@@ -103,6 +108,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         return super.onOptionsItemSelected(item)
     }
+
     // initialize toolBar
     private fun configureToolbar() {
         setSupportActionBar(toolbar as Toolbar?)
@@ -125,6 +131,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    // ---------------------------------------------------------
+    // ----- Alert Dialog when workmates want disconnected -----
+    // ---------------------------------------------------------
+    private fun alertLogOut() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(R.string.titlle_alert)
+        builder.setPositiveButton(R.string.yes) { _, _ ->
+            logout()
+            FirebaseAuth.getInstance().signOut()
+        }
+        builder.setNegativeButton(R.string.no) { dialog, which -> dialog.cancel() }
+        builder.show()
+    }
+
+    private fun logout() {
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener {
+                    val intent = Intent(this, SplashActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
     }
 
 

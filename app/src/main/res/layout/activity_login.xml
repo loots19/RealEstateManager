@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".auth.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:alpha="0.4"
+        android:scaleType="centerCrop"
+        android:src="@drawable/agency"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textViewTittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_auth"
+        android:text="@string/app_name"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/tv_tittle_size_auth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tv_margin_top_register"
+        android:text="@string/tv_login_login"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/tv_register_auth"
+        app:layout_constraintBottom_toTopOf="@+id/viewName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTittle" />
+
+    <View
+        android:id="@+id/viewName"
+        android:layout_width="@dimen/view_auth_layout_width"
+        android:layout_height="@dimen/view_auth_layout_height"
+        android:layout_marginTop="@dimen/margin_top_auth"
+        android:background="@drawable/oval"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_login" />
+
+    <ImageView
+        android:id="@+id/imageViewName"
+        android:layout_width="@dimen/iv_auth_layout_width"
+        android:layout_height="@dimen/iv_auth_layout_height"
+        android:layout_marginStart="@dimen/iv_margin_start_auth"
+        android:src="@drawable/ic_mail_outline_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewName"
+        app:layout_constraintStart_toStartOf="@+id/viewName"
+        app:layout_constraintTop_toTopOf="@+id/viewName"
+        tools:ignore="ContentDescription" />
+
+
+    <EditText
+        android:id="@+id/et_login_name"
+        android:layout_width="@dimen/et_layout_width_auth"
+        android:layout_height="wrap_content"
+        android:hint="@string/editText_mail"
+        android:textColorHint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/viewName"
+        app:layout_constraintEnd_toEndOf="@+id/viewName"
+        app:layout_constraintStart_toEndOf="@+id/imageViewName"
+        app:layout_constraintTop_toTopOf="@+id/viewName"
+        tools:ignore="Autofill,TextFields" />
+
+    <View
+        android:id="@+id/viewMail"
+        android:layout_width="@dimen/view_auth_layout_width"
+        android:layout_height="@dimen/view_auth_layout_height"
+        android:layout_marginTop="@dimen/margin_top_auth"
+        android:background="@drawable/oval"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewName" />
+
+    <ImageView
+        android:id="@+id/imageViewMail"
+        android:layout_width="@dimen/iv_auth_layout_width"
+        android:layout_height="@dimen/iv_auth_layout_height"
+        android:layout_marginStart="@dimen/iv_margin_start_auth"
+        android:src="@drawable/ic_lock_outline_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewMail"
+        app:layout_constraintStart_toStartOf="@+id/viewMail"
+        app:layout_constraintTop_toTopOf="@+id/viewMail"
+        tools:ignore="ContentDescription" />
+
+    <EditText
+        android:id="@+id/et_login_passWord"
+        android:layout_width="@dimen/et_layout_width_auth"
+        android:layout_height="wrap_content"
+        android:hint="@string/editText_password"
+        android:textColorHint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/viewMail"
+        app:layout_constraintEnd_toEndOf="@+id/viewMail"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMail"
+        app:layout_constraintTop_toTopOf="@+id/viewMail"
+        tools:ignore="Autofill,TextFields" />
+
+    <Button
+        android:id="@+id/buttonSignInLogin"
+        android:layout_width="@dimen/view_auth_layout_width"
+        android:layout_height="@dimen/view_auth_layout_height"
+        android:background="@drawable/oval"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="@string/btn_login"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="@dimen/margin_top_auth"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewMail"
+        tools:ignore="UnusedAttribute" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_auth"
+        android:text="@string/tv_login"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSignInLogin" />
+
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -6,6 +6,13 @@
     <string name="bottom_navigation_menu_listView">ListView</string>
     <string name="bottom_navigation_menu_search">Search</string>
     <string name="bottom_navigation_menu_map">MapView</string>
+    <string name="bottom_navigation_menu_logout">LOGOUT</string>
+
+    <!-- ALERT DIALOG -->
+    <string name="titlle_alert">Are your sure you want to logout.</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+
 
     <!-- menu drawer -->
     <string name="menu_create">CREATE A PROPERTY</string>
@@ -52,5 +59,18 @@
     <string name="tv_amount_conversion">Amount</string>
     <string name="tv_tittle_conversion">XE currency converter: 1 USD to EUR = 0.844802 Euros</string>
     <string name="euro">Euros</string>
+
+    <!-- auth and login activity -->
+    <string name="editText_name">Name</string>
+    <string name="editText_mail">Mail</string>
+    <string name="editText_password">Password</string>
+    <string name="btn_register">SIGN IN</string>
+    <string name="tv_already">Already Register ? Login Here</string>
+    <string name="tv_register">Register</string>
+
+    <string name="tv_login_login">Login</string>
+    <string name="tv_login">Welcome Back!</string>
+    <string name="btn_login">LogIn</string>
+
 
 </resources>

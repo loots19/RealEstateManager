@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -13,7 +14,6 @@ class ConversionActivity : AppCompatActivity() {
     private lateinit var amount: String
     private var result: Int? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_conversion)
@@ -21,6 +21,7 @@ class ConversionActivity : AppCompatActivity() {
         actionOnButtonEur()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun convertDollarEur() {
         val etAmount = findViewById<EditText>(R.id.et_amount_conversion)
         val tvResult = findViewById<TextView>(R.id.tv_result_conversion)
@@ -33,6 +34,7 @@ class ConversionActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun convertEurDollar() {
         val etAmount = findViewById<EditText>(R.id.et_amount_conversion)
         val tvResult = findViewById<TextView>(R.id.tv_result_conversion)

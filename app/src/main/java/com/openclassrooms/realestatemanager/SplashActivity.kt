@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.openclassrooms.realestatemanager.auth.AuthActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -20,10 +21,10 @@ class SplashActivity : AppCompatActivity() {
         //3second splash time
         Handler().postDelayed({
             // start main activity
-            startActivity(Intent(this@SplashActivity, MainActivity:: class.java))
+            startActivity(Intent(this@SplashActivity, AuthActivity:: class.java))
             // finish this activity
             finish()
-        },2000)
+        },1000)
 
 
 

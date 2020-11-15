@@ -113,6 +113,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:hint="%"
+            android:maxLines="1"
+            android:inputType="numberSigned"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/seekBarTime" />

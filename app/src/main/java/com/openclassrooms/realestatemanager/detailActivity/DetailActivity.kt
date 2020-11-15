@@ -10,19 +10,23 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.google.android.material.navigation.NavigationView
 import com.openclassrooms.realestatemanager.R
 
 
 class DetailActivity : AppCompatActivity(){
 
+    @BindView(R.id.rv_detail)
+    lateinit var recyclerView: RecyclerView
+
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        ButterKnife.bind(this)
 
-
-        val recyclerView = findViewById<RecyclerView>(R.id.rv_detail)
 
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
         // adding inbuilt divider line
