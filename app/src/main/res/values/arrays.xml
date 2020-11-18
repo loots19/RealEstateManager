@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Spinner Type -->
+    <string-array name="type">
+        <item>Flat</item>
+        <item>House</item>
+        <item>Duplex</item>
+    </string-array>
+
+
+</resources>

@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.R
@@ -33,18 +32,20 @@ class AuthActivity : AppCompatActivity() {
     lateinit var passWordRegister: EditText
 
 
-    private  var mLoginViewModel: LoginViewModel? = null
+    private var mLoginViewModel: LoginViewModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
         ButterKnife.bind(this)
-
         configureViewModel()
         registerAgent()
+        userAction()
 
+    }
 
+    private fun userAction() {
         btnRegister.setOnClickListener { registerNewAgent() }
 
         tvAlready.setOnClickListener { launchLoginActivity() }
@@ -75,7 +76,6 @@ class AuthActivity : AppCompatActivity() {
         mLoginViewModel?.register(mail, passWord)
 
 
-
     }
 
     // ---------------------------------------------------------
@@ -95,7 +95,6 @@ class AuthActivity : AppCompatActivity() {
             if (fireBaseUser != null) {
                 createAgent()
                 launchMainActivity()
-
                 Log.e("connect", "true")
             }
         })
@@ -122,10 +121,6 @@ class AuthActivity : AppCompatActivity() {
         finish()
 
     }
-
-
-
-
 
 
 }

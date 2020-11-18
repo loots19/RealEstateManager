@@ -13,18 +13,21 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import com.firebase.ui.auth.AuthUI
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.openclassrooms.realestatemanager.auth.AuthActivity
+import com.openclassrooms.realestatemanager.auth.LoginViewModel
 import com.openclassrooms.realestatemanager.detailActivity.DetailActivity
 import com.openclassrooms.realestatemanager.fragment.ListFragment
 import com.openclassrooms.realestatemanager.fragment.MapsFragment
+import com.openclassrooms.realestatemanager.repositories.Injection
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private var mLoginViewModel: LoginViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         configureToolbar()
         configureDrawer()
         configureBottomNavigation()
+        configureViewModel()
 
     }
 
@@ -74,7 +78,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.create_property -> {
-                startActivity(Intent(this@MainActivity, CreateProperty::class.java))
+                startActivity(Intent(this@MainActivity, AddProperty::class.java))
             }
             R.id.price_conversion -> {
                 startActivity(Intent(this@MainActivity, ConversionActivity::class.java))
@@ -143,18 +147,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             logout()
             FirebaseAuth.getInstance().signOut()
         }
-        builder.setNegativeButton(R.string.no) { dialog, which -> dialog.cancel() }
+        builder.setNegativeButton(R.string.no) { dialog, _ -> dialog.cancel() }
         builder.show()
     }
 
+    // ---------------------------------------------------------
+    // ----------------- Configuring ViewModel -----------------
+    // ---------------------------------------------------------
+    private fun configureViewModel() {
+        val factory = Injection.providesViewModelFactory(this.applicationContext)
+        mLoginViewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
+
+    }
+    // ---------------------------------
+    // ----- Configuring Observers -----
+    // ---------------------------------
     private fun logout() {
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener {
-                    val intent = Intent(this, SplashActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
+        mLoginViewModel?.logout()
+        val intent = Intent(this, SplashActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 

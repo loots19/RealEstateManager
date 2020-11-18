@@ -3,29 +3,34 @@ package com.openclassrooms.realestatemanager.detailActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.google.android.material.navigation.NavigationView
+import com.openclassrooms.realestatemanager.ConversionActivity
 import com.openclassrooms.realestatemanager.R
 
 
-class DetailActivity : AppCompatActivity(){
+class DetailActivity : AppCompatActivity() {
 
     @BindView(R.id.rv_detail)
     lateinit var recyclerView: RecyclerView
+    @BindView(R.id.imageView_convert)
+    lateinit var ivConvert: ImageView
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         ButterKnife.bind(this)
+
+
+        ivConvert.setOnClickListener {
+            launchConvertActivity()
+        }
 
 
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
@@ -49,12 +54,17 @@ class DetailActivity : AppCompatActivity(){
 
 
         val adapter = DetailAdapter(images, this) { item ->
-            startActivity(Intent(this@DetailActivity, FullScreenActivity::class.java))
-
+            val intent = Intent(this, FullScreenActivity::class.java)
+            intent.putExtra("iImage", item.image)
+            this.startActivity(intent)
         }
 
 
         recyclerView.adapter = adapter
     }
-   
+    private fun launchConvertActivity(){
+        startActivity(Intent(this@DetailActivity, ConversionActivity:: class.java))
+
+    }
+
 }

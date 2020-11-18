@@ -38,6 +38,11 @@ class LoginActivity : AppCompatActivity() {
 
         configureViewModel()
         registerAgent()
+        userAction()
+
+    }
+
+    private fun userAction(){
         button.setOnClickListener { loginAgent() }
     }
 

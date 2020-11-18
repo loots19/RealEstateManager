@@ -142,6 +142,7 @@
             android:layout_width="@dimen/et_layout_width_auth"
             android:layout_height="wrap_content"
             android:hint="@string/editText_password"
+            android:inputType="textPassword"
             android:textColorHint="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="@+id/viewPass"
             app:layout_constraintEnd_toEndOf="@+id/viewPass"

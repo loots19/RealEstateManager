@@ -7,16 +7,14 @@ import com.openclassrooms.realestatemanager.repositories.AgentRepository
 
 class LoginViewModel(private val agentRepository: AgentRepository) : ViewModel() {
 
-    private val userLiveData: MutableLiveData<FirebaseUser>? = agentRepository.getUserLiveData()
-
-
+    private var userLiveData: MutableLiveData<FirebaseUser>? = agentRepository.getUserLiveData()
 
 
     // -----------------------------------------
     // ----- Create a workmate in fireBase -----
     // -----------------------------------------
-    fun createWorkmate(name:String,mail:String){
-        agentRepository.createAgent(name,mail)
+    fun createWorkmate(name: String, mail: String) {
+        agentRepository.createAgent(name, mail)
     }
 
     // ------------------------------------------------------------------
@@ -33,6 +31,10 @@ class LoginViewModel(private val agentRepository: AgentRepository) : ViewModel()
         agentRepository.login(email, password)
     }
 
+    fun logout() {
+        agentRepository.logout()
+    }
+
     fun getUserLiveData(): MutableLiveData<FirebaseUser>? {
         if (userLiveData != null) {
             this.userLiveData
@@ -40,5 +42,5 @@ class LoginViewModel(private val agentRepository: AgentRepository) : ViewModel()
         return userLiveData
     }
 
-
+   
 }

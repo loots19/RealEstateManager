@@ -14,13 +14,13 @@ import com.openclassrooms.realestatemanager.R
 import kotlinx.android.synthetic.main.item_rv_detail.view.*
 
 class DetailAdapter(
-        val imageList: ArrayList<Image>,
+        private val imageList: ArrayList<Image>,
         val context: Context,
         private val listener: (Image) -> Unit
 ) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
 
     @BindView(R.id.iv_item_detail)
-    lateinit var ivPhoto : ImageView
+    lateinit var ivPhoto: ImageView
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,19 +37,14 @@ class DetailAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(imageList[position])
         val item = imageList[position]
-        holder.itemView.setOnClickListener { listener(item)
-
-            val dImageView : Int = item.image
-
-            val intent = Intent(context, FullScreenActivity::class.java)
-            intent.putExtra("iImage",dImageView)
-            context.startActivity(intent)
+        holder.itemView.setOnClickListener {
+            listener(item)
 
         }
 
     }
 
-    //the class is hodling the list view
+    //the class is holding the list view
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(item: Image) {
