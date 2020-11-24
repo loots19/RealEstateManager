@@ -2,63 +2,69 @@ package com.openclassrooms.realestatemanager
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseUser
+import com.openclassrooms.realestatemanager.auth.LoginViewModel
+import com.openclassrooms.realestatemanager.databinding.ActivityConversionBinding
+import com.openclassrooms.realestatemanager.model.Agent
 import com.openclassrooms.realestatemanager.utils.Utils
+import com.openclassrooms.realestatemanager.viewModels.AgentViewModel
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ConversionActivity : AppCompatActivity() {
     private lateinit var amount: String
     private var result: Int? = null
+    private lateinit var binding: ActivityConversionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_conversion)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_conversion)
+
         actionOnBtnDollar()
         actionOnButtonEur()
+
     }
 
     @SuppressLint("SetTextI18n")
     private fun convertDollarEur() {
-        val etAmount = findViewById<EditText>(R.id.et_amount_conversion)
-        val tvResult = findViewById<TextView>(R.id.tv_result_conversion)
-        amount = etAmount.text.toString()
+        amount = binding.etAmountConversion.text.toString()
         if (amount.isEmpty()) {
             Toast.makeText(this, getString(R.string.toast_amount), Toast.LENGTH_SHORT).show()
         } else {
             result = Utils.convertDollarToEuro(Integer.parseInt(amount))
-            tvResult.text = result.toString() + " " + getString(R.string.euro)
+            binding.tvResultConversion.text = result.toString() + " " + getString(R.string.euro)
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun convertEurDollar() {
-        val etAmount = findViewById<EditText>(R.id.et_amount_conversion)
-        val tvResult = findViewById<TextView>(R.id.tv_result_conversion)
-        amount = etAmount.text.toString()
+        amount = binding.etAmountConversion.text.toString()
         if (amount.isEmpty()) {
             Toast.makeText(this, getString(R.string.toast_amount), Toast.LENGTH_SHORT).show()
         } else {
             result = Utils.convertEuroToDollars(Integer.parseInt(amount))
-            tvResult.text = result.toString() + " " + getString(R.string.dollars)
+            binding.tvResultConversion.text = result.toString() + " " + getString(R.string.dollars)
         }
     }
 
     private fun actionOnBtnDollar() {
-        val btnDollars = findViewById<Button>(R.id.btn_dollars_euro)
-        btnDollars.setOnClickListener {
+        binding.btnDollarsEuro.setOnClickListener {
             convertDollarEur()
         }
     }
 
     private fun actionOnButtonEur() {
-        val btnEur = findViewById<Button>(R.id.btn_euro_dollar)
-        btnEur.setOnClickListener {
+        binding.btnEuroDollar.setOnClickListener {
             convertEurDollar()
         }
     }
+
 
 }

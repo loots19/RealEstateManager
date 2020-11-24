@@ -3,9 +3,15 @@ package com.openclassrooms.realestatemanager
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.widget.*
+import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import com.openclassrooms.realestatemanager.databinding.ActivitySimulatorBinding
+import com.openclassrooms.realestatemanager.model.Agent
+import com.openclassrooms.realestatemanager.viewModels.AgentViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.RoundingMode
 import kotlin.math.pow
 
@@ -19,27 +25,25 @@ class SimulatorActivity : AppCompatActivity() {
     private var monthlyPayment: Double = 0.0
     private var loanAmount: Int = 0
     private var loanPeriod: Int = 0
+    private lateinit var binding: ActivitySimulatorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_simulator)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_simulator)
 
         actionOnShareButton()
         actionOnSkAmount()
         actionOnSkTime()
         actionOnBtnResult()
 
+
     }
 
     // initialize and use seekBar
     private fun actionOnSkAmount() {
-        val sk = findViewById<SeekBar>(R.id.seekBarAmount)
-
-        sk.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.seekBarAmount.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
-
-                val textViewAmount = findViewById<TextView>(R.id.tvProgressAmount)
-                textViewAmount.text = ("" + progress * 1000 + "" + " " + getString(R.string.dollars))
+                binding.tvProgressAmount.text = ("" + progress * 1000 + "" + " " + getString(R.string.dollars))
                 valueAmount = (progress * 1000).toString()
 
             }
@@ -51,13 +55,10 @@ class SimulatorActivity : AppCompatActivity() {
 
     // initialize and use seekBar
     private fun actionOnSkTime() {
-        val skT = findViewById<SeekBar>(R.id.seekBarTime)
-
-        skT.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.seekBarTime.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             @SuppressLint("SetTextI18n")
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
-                val textViewTime = findViewById<TextView>(R.id.tvProgressTime)
-                textViewTime.text = "" + progress + "" + " " + getString(R.string.Years)
+                binding.tvProgressTime.text = "" + progress + "" + " " + getString(R.string.Years)
                 valueTime = progress.toString()
 
             }
@@ -70,13 +71,13 @@ class SimulatorActivity : AppCompatActivity() {
 
     // initialize and use Fab
     private fun actionOnShareButton() {
-        val fb = findViewById<FloatingActionButton>(R.id.fab_share)
-        fb.setOnClickListener {
+        binding.fabShare.setOnClickListener {
 
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
-            val shareBody = ("" + rounded + " " + getString(R.string.tv_result))
-            val shareSubject = "your subject here"
+            val shareBody = ("" + rounded + " " + getString(R.string.tv_result)
+                    + "\n" + getString(R.string.tv_total_payments) + " " + roundedTotal + " " + getString(R.string.dollars))
+            val shareSubject = getString(R.string.share_subject)
             intent.putExtra(Intent.EXTRA_TEXT, shareBody)
             intent.putExtra(Intent.EXTRA_SUBJECT, shareSubject)
             startActivity(Intent.createChooser(intent, "Share Using"))
@@ -84,17 +85,13 @@ class SimulatorActivity : AppCompatActivity() {
     }
 
     private fun actionOnBtnResult() {
-        val btnResult = findViewById<Button>(R.id.buttonResult)
-        btnResult.setOnClickListener {
+        binding.buttonResult.setOnClickListener {
             showLoanPayments()
         }
     }
 
     private fun showLoanPayments() {
-        val etInterest = findViewById<EditText>(R.id.editTextPercent)
-        val interestRate = etInterest.text.toString()
-        val tvResult = findViewById<TextView>(R.id.textViewResult)
-        val tvTotal = findViewById<TextView>(R.id.tvTotalResult)
+        val interestRate = binding.editTextPercent.text.toString()
 
         if (valueAmount.isEmpty()) {
             Toast.makeText(this, getString(R.string.toast_amount), Toast.LENGTH_SHORT).show()
@@ -115,12 +112,13 @@ class SimulatorActivity : AppCompatActivity() {
             totalPayments = monthlyPayment * loanPeriod
             roundedTotal = totalPayments.toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
 
-            tvResult.text = ("" + rounded + " " + getString(R.string.tv_result))
-            tvTotal.text = ("" + roundedTotal + " " + getString(R.string.dollars))
+            binding.textViewResult.text = ("" + rounded + " " + getString(R.string.tv_result))
+            binding.tvTotalResult.text = ("" + roundedTotal + " " + getString(R.string.dollars))
         }
 
 
     }
+
 }
 
 

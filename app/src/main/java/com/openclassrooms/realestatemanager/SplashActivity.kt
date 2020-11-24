@@ -7,20 +7,13 @@ import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.openclassrooms.realestatemanager.auth.AuthActivity
-import com.openclassrooms.realestatemanager.auth.LoginViewModel
-import com.openclassrooms.realestatemanager.repositories.Injection
 
 class SplashActivity : AppCompatActivity() {
-private var mLoginViewModel: LoginViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         //hiding tittle bar of this activity
         window.requestFeature(Window.FEATURE_NO_TITLE)
@@ -32,18 +25,23 @@ private var mLoginViewModel: LoginViewModel? = null
         Handler().postDelayed({
 
             // start main activity
-           userLogged()
+            userLogged()
             // finish this activity
             finish()
         }, 2000)
 
 
     }
-    private fun userLogged(){
-        if(FirebaseAuth.getInstance().currentUser == null){
-            launchSignIn()
-        }else{
+
+    private fun userLogged() {
+        if (FirebaseAuth.getInstance().currentUser != null) {
             launchMainActivity()
+            Log.e("test", "yes")
+
+        } else {
+            launchSignIn()
+
+            Log.e("test", "no")
         }
     }
 
@@ -54,8 +52,9 @@ private var mLoginViewModel: LoginViewModel? = null
         startActivity((Intent(this@SplashActivity, MainActivity::class.java)))
         finish()
     }
-    private fun launchSignIn(){
-        startActivity(Intent(this@SplashActivity,AuthActivity::class.java))
+
+    private fun launchSignIn() {
+        startActivity(Intent(this@SplashActivity, AuthActivity::class.java))
         finish()
     }
 }

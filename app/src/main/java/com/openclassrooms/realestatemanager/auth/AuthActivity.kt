@@ -1,108 +1,121 @@
 package com.openclassrooms.realestatemanager.auth
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.google.firebase.auth.FirebaseUser
 import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.repositories.Injection
+import com.openclassrooms.realestatemanager.databinding.ActivityAuthBinding
+import com.openclassrooms.realestatemanager.model.Agent
+import com.openclassrooms.realestatemanager.utils.UtilsKotlin
+import com.openclassrooms.realestatemanager.viewModels.AgentViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class AuthActivity : AppCompatActivity() {
-    // for design
-    @BindView(R.id.buttonSignIn)
-    lateinit var btnRegister: Button
-    @BindView(R.id.textViewAlready)
-    lateinit var tvAlready: TextView
-    @BindView(R.id.progressBarAuth)
-    lateinit var progressBar: ProgressBar
-    @BindView(R.id.et_auth_name)
-    lateinit var nameRegister: EditText
-    @BindView(R.id.et_auth_mail)
-    lateinit var mailRegister: EditText
-    @BindView(R.id.et_auth_password)
-    lateinit var passWordRegister: EditText
 
+    private lateinit var binding: ActivityAuthBinding
+    private val mLoginViewModel by viewModel<LoginViewModel>()
+    private val mAgentViewModel by viewModel<AgentViewModel>()
+    private var name: String? = ""
+    private var passWord: String? = ""
 
-    private var mLoginViewModel: LoginViewModel? = null
+    companion object{
+        const val id = 1
+    }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auth)
-        ButterKnife.bind(this)
-        configureViewModel()
+        //setContentView(R.layout.activity_auth)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_auth)
+
         registerAgent()
+
+        //checkAvailableNetwork()
         userAction()
+
 
     }
 
     private fun userAction() {
-        btnRegister.setOnClickListener { registerNewAgent() }
+        binding.buttonSignIn.setOnClickListener { registerNewAgent() }
 
-        tvAlready.setOnClickListener { launchLoginActivity() }
+        binding.textViewAlready.setOnClickListener { launchLoginActivity() }
     }
 
     private fun registerNewAgent() {
-        progressBar.visibility = View.VISIBLE
+        binding.progressBarAuth.visibility = View.VISIBLE
 
-        val name = nameRegister.text.toString()
-        val mail = mailRegister.text.toString()
-        val passWord = passWordRegister.text.toString()
+        name = binding.etAuthName.text.toString()
+        val mail = binding.etAuthMail.text.toString()
+        val passWord = binding.etAuthPassword.text.toString()
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(applicationContext, "please enter name", Toast.LENGTH_SHORT).show()
             return
         }
-
         if (TextUtils.isEmpty(mail)) {
             Toast.makeText(applicationContext, "please enter email", Toast.LENGTH_SHORT).show()
             return
         }
-
-
         if (TextUtils.isEmpty(passWord)) {
             Toast.makeText(applicationContext, "please enter password", Toast.LENGTH_SHORT).show()
-
         }
-        mLoginViewModel?.register(mail, passWord)
+        mLoginViewModel.register(mail, passWord)
+        connected()
 
 
-    }
-
-    // ---------------------------------------------------------
-    // ----------------- Configuring ViewModel -----------------
-    // ---------------------------------------------------------
-    private fun configureViewModel() {
-        val factory = Injection.providesViewModelFactory(this.applicationContext)
-        mLoginViewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
 
     }
 
     // ---------------------------------
     // ----- Configuring Observers -----
     // ---------------------------------
+    private fun checkAvailableNetwork() {
+        if (UtilsKotlin.verifyAvailableNetwork(this)) {
+            Toast.makeText(this, "connected to network", Toast.LENGTH_SHORT).show()
+            registerAgent()
+
+        } else {
+            Toast.makeText(this, "No Connection", Toast.LENGTH_SHORT).show()
+            launchMainActivity()
+        }
+    }
+
+
     private fun registerAgent() {
-        mLoginViewModel?.getUserLiveData()?.observe(this, Observer<FirebaseUser> { fireBaseUser ->
+        mLoginViewModel.getUserLiveData()?.observe(this, Observer<FirebaseUser> { fireBaseUser ->
             if (fireBaseUser != null) {
                 createAgent()
                 launchMainActivity()
-                Log.e("connect", "true")
+
             }
         })
 
     }
 
     private fun createAgent() {
-        mLoginViewModel?.createWorkmate(nameRegister.text.toString(), mailRegister.text.toString())
+        mLoginViewModel.createAgent(binding.etAuthName.text.toString(), binding.etAuthMail.text.toString())
+    }
+
+    private fun connected(){
+        val shares = getSharedPreferences("connection", Context.MODE_PRIVATE).edit()
+        shares.putString("pref_name", name)
+                .apply()
+        Log.e("testPref",name)
+
     }
 
     // -------------------------------------------------------
@@ -121,6 +134,7 @@ class AuthActivity : AppCompatActivity() {
         finish()
 
     }
+
 
 
 }

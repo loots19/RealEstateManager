@@ -1,25 +1,25 @@
 package com.openclassrooms.realestatemanager.repositories
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.openclassrooms.realestatemanager.MainActivity
-import com.openclassrooms.realestatemanager.SplashActivity
 import com.openclassrooms.realestatemanager.model.Agent
-import org.koin.dsl.module.applicationContext
 import java.util.*
 
-class AgentRepository {
+class AgentRepository (){
+
+
 
 
     private var userLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
+    private var agentLiveData: MutableLiveData<Agent> = MutableLiveData()
+
 
 
     // ----- getter -----
@@ -28,11 +28,10 @@ class AgentRepository {
     }
 
 
-
     // --------------------------------
     // ----- COLLECTION REFERENCE -----
     // --------------------------------
-    private fun getWorkmatesCollection(): CollectionReference {
+    private fun getAgentCollection(): CollectionReference {
         return FirebaseFirestore.getInstance().collection("agent")
     }
 
@@ -40,14 +39,10 @@ class AgentRepository {
     // ----- CREATE -----
     // ------------------
     fun createAgent(name: String, mail: String) {
-        val agentToCreate = Agent(name, mail)
-        val uid: String? = FirebaseAuth.getInstance().uid
-        if (uid != null) {
-            getWorkmatesCollection().document(uid).set(agentToCreate)
-        }
+        val uid: String = FirebaseAuth.getInstance().uid.toString()
+        val agentToCreate = Agent(uid,name, mail)
+        getAgentCollection().document(uid).set(agentToCreate)
     }
-
-
 
 
     // ------------------------------------------------------------------
@@ -79,14 +74,25 @@ class AgentRepository {
                     }
                 }
     }
+
     // ---------------------------
     // ----- Logout Agent --------
     // ---------------------------
-    fun logout(){
+    fun logout() {
+
         FirebaseAuth.getInstance().signOut()
     }
 
 
+
+
+
+
 }
+
+
+
+
+
 
 

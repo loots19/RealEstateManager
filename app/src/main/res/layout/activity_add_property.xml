@@ -327,11 +327,13 @@
                     app:layout_constraintStart_toStartOf="@+id/viewAgent"
                     app:layout_constraintTop_toTopOf="@+id/viewAgent" />
 
-                <EditText
-                    android:id="@+id/et_agent_create"
+                <TextView
+                    android:id="@+id/tv_agent_create"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Agent"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
                     android:textColorHint="@android:color/black"
                     app:layout_constraintBottom_toBottomOf="@+id/viewAgent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -397,7 +399,7 @@
                     app:layout_constraintTop_toTopOf="@+id/viewPhoto" />
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/tvPhoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Take a picture"

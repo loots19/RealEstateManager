@@ -1,6 +1,8 @@
 package com.openclassrooms.realestatemanager.detailActivity
 
-data class Image (val image:Int,
+import android.net.Uri
+
+data class Image (val image: String,
                   val text:String)
 
 

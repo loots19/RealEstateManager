@@ -9,11 +9,10 @@ class LoginViewModel(private val agentRepository: AgentRepository) : ViewModel()
 
     private var userLiveData: MutableLiveData<FirebaseUser>? = agentRepository.getUserLiveData()
 
-
     // -----------------------------------------
     // ----- Create a workmate in fireBase -----
     // -----------------------------------------
-    fun createWorkmate(name: String, mail: String) {
+    fun createAgent(name: String, mail: String) {
         agentRepository.createAgent(name, mail)
     }
 
@@ -42,5 +41,5 @@ class LoginViewModel(private val agentRepository: AgentRepository) : ViewModel()
         return userLiveData
     }
 
-   
+
 }

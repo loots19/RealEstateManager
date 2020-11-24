@@ -1,10 +1,13 @@
 package com.openclassrooms.realestatemanager.detailActivity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,12 +23,15 @@ class DetailActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     @BindView(R.id.imageView_convert)
     lateinit var ivConvert: ImageView
+    @BindView(R.id.tv_agent_detail)
+    lateinit var tvName : TextView
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         ButterKnife.bind(this)
+
 
 
         ivConvert.setOnClickListener {
@@ -40,17 +46,17 @@ class DetailActivity : AppCompatActivity() {
 
         val images = ArrayList<Image>()
 
-        images.add(Image(R.drawable.dollar, "dollars"))
-        images.add(Image(R.drawable.logo, "logo"))
-        images.add(Image(R.drawable.dollar, "dollars"))
-        images.add(Image(R.drawable.logo, "logo"))
-        images.add(Image(R.drawable.dollar, "dollars"))
-        images.add(Image(R.drawable.dollar, "dollars"))
-        images.add(Image(R.drawable.agency, "dollars"))
-        images.add(Image(R.drawable.dollar, "dollars"))
-        images.add(Image(R.drawable.logo, "logo"))
-        images.add(Image(R.drawable.dollar, "dollars"))
-        images.add(Image(R.drawable.agency, "dollars"))
+       images.add(Image(R.drawable.dollar.toString(), "dollars"))
+       images.add(Image(R.drawable.logo.toString(), "logo"))
+       images.add(Image(R.drawable.dollar.toString(), "dollars"))
+       images.add(Image(R.drawable.logo.toString(), "logo"))
+     //images.add(Image(R.drawable.dollar, "dollars"))
+     //images.add(Image(R.drawable.dollar, "dollars"))
+     //images.add(Image(R.drawable.agency, "dollars"))
+     //images.add(Image(R.drawable.dollar, "dollars"))
+     //images.add(Image(R.drawable.logo, "logo"))
+     //images.add(Image(R.drawable.dollar, "dollars"))
+     //images.add(Image(R.drawable.agency, "dollars"))
 
 
         val adapter = DetailAdapter(images, this) { item ->
@@ -66,5 +72,6 @@ class DetailActivity : AppCompatActivity() {
         startActivity(Intent(this@DetailActivity, ConversionActivity:: class.java))
 
     }
+
 
 }

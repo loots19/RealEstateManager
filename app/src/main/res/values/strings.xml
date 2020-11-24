@@ -50,6 +50,7 @@
     <string name="toast_period">you have to select period</string>
     <string name="toast_percent">you have to select percent</string>
     <string name="tv_total_payments">Your total payments will be</string>
+    <string name="share_subject">the approximate result of the loan simulation is:</string>
 
     <!-- conversion activity -->
     <string name="tv_bottom_conversion">All figures are mid-market rates, which are not available to consumers and are given for information only.</string>
