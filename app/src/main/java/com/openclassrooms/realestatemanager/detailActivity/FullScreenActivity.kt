@@ -19,7 +19,7 @@ class FullScreenActivity : AppCompatActivity() {
 
 
 
-        var intent = intent
+        val intent = intent
         val dImage = intent.getIntExtra("iImage", 0)
         ivFullScreen.setImageResource(dImage)
 

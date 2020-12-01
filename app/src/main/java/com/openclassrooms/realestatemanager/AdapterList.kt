@@ -1,38 +1,61 @@
 package com.openclassrooms.realestatemanager
 
-import android.content.Context
-import android.media.Image
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_list.view.*
+import com.openclassrooms.realestatemanager.model.Property
 
-class AdapterList(private val context: Context, private val images: List<Image>)
+class AdapterList(private val listener: (Property) -> Unit)
     : RecyclerView.Adapter<AdapterList.ViewHolder>() {
+
+    private var properties: List<Property> = ArrayList()
 
 
     // Usually involves inflating a layout from XML and returning the holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false))
     }
 
     // Returns the total count of items in the list
-    override fun getItemCount() = images.size
+    override fun getItemCount() = properties.size
+
+
+    fun setProperties(properties: List<Property>) {
+        this.properties = properties
+        notifyDataSetChanged()
+    }
 
     // Involves populating data into the item through holder
-    override fun onBindViewHolder(holder: AdapterList.ViewHolder, position: Int) {
-        val contact = images[position]
-        holder.bind(contact)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindItems(properties[position])
+        val item = properties[position]
+        holder.itemView.setOnClickListener {
+            listener(item)
+
+        }
+
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(image:Image) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-            Glide.with(context).load(R.drawable.dollar).into(itemView.iv_detail)
+        fun bindItems(item: Property) {
+            val image = itemView.findViewById(R.id.iv_detail) as ImageView
+            val type = itemView.findViewById(R.id.tv_type_item_detail) as TextView
+            val price = itemView.findViewById(R.id.tv_price_item_detail) as TextView
+            val address = itemView.findViewById(R.id.tv_city_item_detail) as TextView
+
+            type.text = item.type
+            price.text = item.price.toString()
+            address.text = item.city
+            Glide.with(itemView.context).load(item.photoCover.toInt()).into(image)
+            Log.e("testPhoto", "" + item.photoCover)
         }
     }
+
+
 }

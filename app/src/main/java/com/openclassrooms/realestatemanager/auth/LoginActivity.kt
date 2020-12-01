@@ -1,8 +1,10 @@
 package com.openclassrooms.realestatemanager.auth
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +18,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private var name: String? = ""
+    private var password: String? = ""
+
 
     private val mLoginViewModel by viewModel<LoginViewModel>()
 
@@ -36,20 +41,22 @@ class LoginActivity : AppCompatActivity() {
     private fun loginAgent() {
         binding.progressBarLogin.visibility = View.VISIBLE
 
-        val name = binding.etLoginName.text.toString()
-        val passWord = binding.etLoginPassWord.text.toString()
+        name = binding.etLoginName.text.toString()
+        password = binding.etLoginPassWord.text.toString()
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(applicationContext, "please enter name", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if (TextUtils.isEmpty(passWord)) {
+        if (TextUtils.isEmpty(password)) {
             Toast.makeText(applicationContext, "please enter password", Toast.LENGTH_SHORT).show()
 
         }
-        mLoginViewModel.logIn(name, passWord)
+        mLoginViewModel.logIn(name!!, password!!)
+
     }
+
 
     // ---------------------------------
     // ----- Configuring Observers -----

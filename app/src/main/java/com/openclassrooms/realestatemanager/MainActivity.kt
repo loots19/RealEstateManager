@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -18,6 +17,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.openclassrooms.realestatemanager.auth.LoginViewModel
+import com.openclassrooms.realestatemanager.auth.SplashActivity
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding
 import com.openclassrooms.realestatemanager.detailActivity.DetailActivity
 import com.openclassrooms.realestatemanager.fragment.ListFragment
@@ -106,11 +106,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.search -> {
 
             }
-            R.id.edit -> {
-                // start detail activity for test
-                startActivity(Intent(this@MainActivity, DetailActivity::class.java))
 
-            }
 
         }
         return super.onOptionsItemSelected(item)

@@ -68,10 +68,30 @@
     <string name="btn_register">SIGN IN</string>
     <string name="tv_already">Already Register ? Login Here</string>
     <string name="tv_register">Register</string>
-
     <string name="tv_login_login">Login</string>
     <string name="tv_login">Welcome Back!</string>
     <string name="btn_login">LogIn</string>
+
+    <!-- add property activity -->
+    <string name="tittle">Create your property</string>
+    <string name="tv_detail">Detail</string>
+    <string name="et_surface">Surface</string>
+    <string name="et_room">Room</string>
+    <string name="et_bathroom">Bathroom</string>
+    <string name="et_bedroom">bedroom</string>
+    <string name="et_address">Address</string>
+    <string name="tv_date">Date</string>
+    <string name="tv_agent">Agent</string>
+    <string name="tv_media">Media</string>
+    <string name="tv_take_picture">Take a picture</string>
+    <string name="tv_from_storage">From storage</string>
+    <string name="tv_description">Description</string>
+    <string name="et_price">Price</string>
+
+
+
+
+
 
 
 </resources>

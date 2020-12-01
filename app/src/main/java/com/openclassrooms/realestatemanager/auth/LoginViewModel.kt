@@ -3,7 +3,7 @@ package com.openclassrooms.realestatemanager.auth
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
-import com.openclassrooms.realestatemanager.repositories.AgentRepository
+import com.openclassrooms.realestatemanager.database.repositories.AgentRepository
 
 class LoginViewModel(private val agentRepository: AgentRepository) : ViewModel() {
 

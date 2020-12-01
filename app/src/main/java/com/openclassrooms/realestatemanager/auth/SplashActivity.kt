@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,11 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.openclassrooms.realestatemanager.auth.AuthActivity
+import com.openclassrooms.realestatemanager.MainActivity
+import com.openclassrooms.realestatemanager.R
 
 class SplashActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +36,12 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun userLogged() {
-        if (FirebaseAuth.getInstance().currentUser != null) {
-            launchMainActivity()
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            launchSignIn()
             Log.e("test", "yes")
 
         } else {
-            launchSignIn()
-
+            launchMainActivity()
             Log.e("test", "no")
         }
     }

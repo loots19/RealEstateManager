@@ -9,15 +9,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseUser
 import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityAuthBinding
-import com.openclassrooms.realestatemanager.model.Agent
 import com.openclassrooms.realestatemanager.utils.UtilsKotlin
-import com.openclassrooms.realestatemanager.viewModels.AgentViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -25,27 +22,16 @@ class AuthActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthBinding
     private val mLoginViewModel by viewModel<LoginViewModel>()
-    private val mAgentViewModel by viewModel<AgentViewModel>()
     private var name: String? = ""
-    private var passWord: String? = ""
-
-    companion object{
-        const val id = 1
-    }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_auth)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_auth)
 
-        registerAgent()
-
-        //checkAvailableNetwork()
+        //registerAgent()
+        checkAvailableNetwork()
         userAction()
-
 
     }
 
@@ -74,9 +60,6 @@ class AuthActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "please enter password", Toast.LENGTH_SHORT).show()
         }
         mLoginViewModel.register(mail, passWord)
-        connected()
-
-
 
     }
 
@@ -94,47 +77,33 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
-
     private fun registerAgent() {
         mLoginViewModel.getUserLiveData()?.observe(this, Observer<FirebaseUser> { fireBaseUser ->
             if (fireBaseUser != null) {
+
                 createAgent()
                 launchMainActivity()
-
             }
         })
-
     }
 
     private fun createAgent() {
         mLoginViewModel.createAgent(binding.etAuthName.text.toString(), binding.etAuthMail.text.toString())
     }
 
-    private fun connected(){
-        val shares = getSharedPreferences("connection", Context.MODE_PRIVATE).edit()
-        shares.putString("pref_name", name)
-                .apply()
-        Log.e("testPref",name)
-
-    }
-
     // -------------------------------------------------------
-    // ----------------- Launch main activity -----------------
+    // ----------------- Launch activities -----------------
     // -------------------------------------------------------
     private fun launchMainActivity() {
         startActivity((Intent(this@AuthActivity, MainActivity::class.java)))
         finish()
     }
 
-    // ---------------------------------------------------------
-    // ----------------- Launch LogIn activity -----------------
-    // ---------------------------------------------------------
     private fun launchLoginActivity() {
         startActivity((Intent(this@AuthActivity, LoginActivity::class.java)))
         finish()
 
     }
-
 
 
 }

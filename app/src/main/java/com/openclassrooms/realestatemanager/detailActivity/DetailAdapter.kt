@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.model.Photo
 import kotlinx.android.synthetic.main.item_rv_detail.view.*
 
 class DetailAdapter(
-        private val imageList: ArrayList<Image>,
-        val context: Context,
-        private val listener: (Image) -> Unit
+        private val imageList: ArrayList<Photo>,
+        private val listener: (Photo) -> Unit
 ) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
 
 
@@ -45,12 +45,12 @@ class DetailAdapter(
     //the class is holding the list view
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindItems(item: Image) {
+        fun bindItems(item: Photo) {
             val ivPhoto = itemView.findViewById(R.id.iv_item_detail) as ImageView
             val etText = itemView.findViewById(R.id.tv_item_detail) as TextView
 
-            etText.text = item.text
-            Glide.with(ivPhoto).load(item.image).into(itemView.iv_item_detail)
+            etText.text = item.name
+            Glide.with(ivPhoto).load(item.urlPhoto).into(itemView.iv_item_detail)
 
 
         }

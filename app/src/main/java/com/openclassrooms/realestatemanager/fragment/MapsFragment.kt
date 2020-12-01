@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.fragment
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -46,10 +45,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                         Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity(),
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+            return
         }
         mMap.isMyLocationEnabled = true
         fusedLocationProviderClient.lastLocation.addOnSuccessListener(requireActivity()) { location ->
-
+            // Got last known location. In some rare situations this can be null.
             if (location != null) {
                 currentLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
@@ -58,15 +58,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
-
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            fetchLocation()
-        }
+        fetchLocation()
+
 
     }
 
