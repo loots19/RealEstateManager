@@ -5,8 +5,14 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import com.openclassrooms.realestatemanager.BuildConfig
+import com.openclassrooms.realestatemanager.retrofit.ApiRequest
+import com.squareup.okhttp.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class App : Application() {
     companion object{
@@ -16,7 +22,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(listOf(repositoryAgentModule, vMLoginModule, vMAgentModule, appModule, vMPropertyModule, repositoryProperty))
+            modules(listOf(repositoryAgentModule, vMLoginModule, vMAgentModule, appModule, vMPropertyModule, repositoryProperty, vMPhotoModule, repositoryPhoto))
         }
         channelId = "RealEstateManager"
         createNotificationChannel()
@@ -37,5 +43,10 @@ class App : Application() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
+
+
+
+
 
 }

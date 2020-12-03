@@ -87,11 +87,7 @@
     <string name="tv_from_storage">From storage</string>
     <string name="tv_description">Description</string>
     <string name="et_price">Price</string>
-
-
-
-
-
+    <string name="et_city">City</string>
 
 
 </resources>

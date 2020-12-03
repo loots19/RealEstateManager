@@ -23,7 +23,7 @@ class FakePropertyApi {
                     property1.put("nbr_room","6")
                     property1.put("nbr_bathRoom","2")
                     property1.put("nbr_bedRoom","4")
-                    property1.put("address","15 avenue berthelot 95570 Bouffémont")
+                    property1.put("address","15 avenue berthelot 95570 ")
                     property1.put("date_entry","24/11/2020")
                     property1.put("photo_cover", R.drawable.house2)
                     property1.put("description","Within a modern, private and fully secure driveway with caretaker, a magnificent architect-designed house in perfect condition of approximately 200m2 of living space with 128m2 of outdoor space. This house consists of: On the ground floor, three bedrooms, two with bathroom / water and a separate toilet. These three bedrooms each overlook the outdoor spaces including a 40m2 garden and 20m2 Japanese garden. On the first floor, a double cathedral living room with fireplace opening onto two terraces, one of which is 20m2 and 10m2, and a fitted and equipped independent kitchen. On the 2nd and last floor, a master suite with bathroom, dressing room and an office space opening onto a terrace of 18m2. In the basement, a storage space of 20m2 and a closed double box attached to the house. This house, bright and quiet, with no real vis-à-vis is ideal for large families.\n")
@@ -31,6 +31,7 @@ class FakePropertyApi {
                     property1.put("property_lat","49.04224")
                     property1.put("property_lng","2.30468")
                     property1.put("agent_id",1)
+                    property1.put("agent_name","loots")
                     db.insert("property",OnConflictStrategy.IGNORE,property1)
 
                     val property2 = ContentValues()
@@ -42,7 +43,7 @@ class FakePropertyApi {
                     property2.put("nbr_room","6")
                     property2.put("nbr_bathRoom","2")
                     property2.put("nbr_bedRoom","3")
-                    property2.put("address","15 avenue berthelot 95570 Bouffémont")
+                    property2.put("address","1 rue lamartine  95330 ")
                     property2.put("date_entry","24/11/2020")
                     property2.put("photo_cover", R.drawable.duplex3)
                     property2.put("description","sublime duplex for sale in a recent building of high standing, highly secure with 24H / 24 concierge, quiet, not overlooked, great light, terraces and balconies on 2 levels overlooking a private garden. Accessible from the ground floor of the building, the recently renovated apartment is made up on the ground floor of a large entrance with a shower room and WC, a large living room, a storage room; In the basement a large bedroom with shower room and WC, a storage room; On the 1st floor a dining room with fitted kitchen, a 2nd living room, WC; on the 2nd floor 2 large suites, one with a walk-in shower room and the other with a bathroom; WC, dressing room and built-in cupboards. Elevator and interior stairs, central and electric air conditioning, central heating, safe, videophone on all levels, electric shutters, reinforced door. Guardian, digital code, intercom, alarm.\n")
@@ -50,6 +51,7 @@ class FakePropertyApi {
                     property2.put("property_lat","49.04224")
                     property2.put("property_lng","2.30468")
                     property2.put("agent_id",1)
+                    property2.put("agent_name","david")
                     db.insert("property",OnConflictStrategy.IGNORE,property2)
 
 
@@ -62,7 +64,7 @@ class FakePropertyApi {
                     property3.put("nbr_room","6")
                     property3.put("nbr_bathRoom","2")
                     property3.put("nbr_bedRoom","3")
-                    property3.put("address","15 avenue berthelot 95570 Bouffémont")
+                    property3.put("address","15 rue du languedoc ")
                     property3.put("date_entry","24/11/2020")
                     property3.put("photo_cover", R.drawable.flat1)
                     property3.put("description","sublime duplex for sale in a recent building of high standing, highly secure with 24H / 24 concierge, quiet, not overlooked, great light, terraces and balconies on 2 levels overlooking a private garden. Accessible from the ground floor of the building, the recently renovated apartment is made up on the ground floor of a large entrance with a shower room and WC, a large living room, a storage room; In the basement a large bedroom with shower room and WC, a storage room; On the 1st floor a dining room with fitted kitchen, a 2nd living room, WC; on the 2nd floor 2 large suites, one with a walk-in shower room and the other with a bathroom; WC, dressing room and built-in cupboards. Elevator and interior stairs, central and electric air conditioning, central heating, safe, videophone on all levels, electric shutters, reinforced door. Guardian, digital code, intercom, alarm.\n")
@@ -70,6 +72,7 @@ class FakePropertyApi {
                     property3.put("property_lat","49.04224")
                     property3.put("property_lng","2.30468")
                     property3.put("agent_id",2)
+                    property3.put("agent_name","loots")
                     db.insert("property",OnConflictStrategy.IGNORE,property3)
 
 
@@ -82,7 +85,7 @@ class FakePropertyApi {
                     property4.put("nbr_room","6")
                     property4.put("nbr_bathRoom","2")
                     property4.put("nbr_bedRoom","3")
-                    property4.put("address","15 avenue berthelot 95570 Bouffémont")
+                    property4.put("address","1 allée des princes 95540 ")
                     property4.put("date_entry","24/11/2020")
                     property4.put("photo_cover", R.drawable.house4)
                     property4.put("description","In an old building, overlooking a paved and wooded courtyard full of charm, a duplex apartment (like a house) of 112.06m2 LC (119.01 m2 in living area) offering on the ground floor, an entrance, a large double living room of 45m2 with open kitchen, two bedrooms, a bathroom, a shower room with WC, a laundry room, a dressing room and a separate WC. Upstairs, a large bedroom, a dressing room and a bathroom with shower and bathtub as well as a separate toilet. Atypical, calm, and facing South-West. Completely renovated.")
@@ -90,6 +93,7 @@ class FakePropertyApi {
                     property4.put("property_lat","49.04224")
                     property4.put("property_lng","2.30468")
                     property4.put("agent_id",3)
+                    property4.put("agent_name","david")
                     db.insert("property",OnConflictStrategy.IGNORE,property4)
 
 

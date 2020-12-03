@@ -19,7 +19,6 @@ import com.google.android.material.navigation.NavigationView
 import com.openclassrooms.realestatemanager.auth.LoginViewModel
 import com.openclassrooms.realestatemanager.auth.SplashActivity
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding
-import com.openclassrooms.realestatemanager.detailActivity.DetailActivity
 import com.openclassrooms.realestatemanager.fragment.ListFragment
 import com.openclassrooms.realestatemanager.fragment.MapsFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,6 +40,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         configureBottomNavigation()
 
 
+        if (savedInstanceState == null) {
+            val fragment = ListFragment()
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, fragment.javaClass.simpleName)
+                    .commit()
+        }
     }
 
 
@@ -53,6 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // click event on bottomNavigation
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
+
             R.id.action_list -> {
                 val listFragment = ListFragment.newInstance()
                 openFragment(listFragment)
@@ -81,7 +86,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.create_property -> {
-                startActivity(Intent(this@MainActivity, AddProperty::class.java))
+                startActivity(Intent(this@MainActivity, CreateProperty::class.java))
             }
             R.id.price_conversion -> {
                 startActivity(Intent(this@MainActivity, ConversionActivity::class.java))
@@ -161,7 +166,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         finish()
 
     }
-
 
 
 }

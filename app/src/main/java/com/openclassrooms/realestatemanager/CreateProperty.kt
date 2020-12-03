@@ -1,10 +1,8 @@
 package com.openclassrooms.realestatemanager
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -17,10 +15,8 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +26,7 @@ import com.openclassrooms.realestatemanager.detailActivity.FullScreenActivity
 import com.openclassrooms.realestatemanager.koin.App
 import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.Property
+import com.openclassrooms.realestatemanager.utils.UtilsKotlin
 import com.openclassrooms.realestatemanager.viewModels.AgentViewModel
 import com.openclassrooms.realestatemanager.viewModels.PropertyViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -38,7 +35,7 @@ import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AddProperty : AppCompatActivity() {
+class CreateProperty : AppCompatActivity() {
 
     private val mAgentViewModel by viewModel<AgentViewModel>()
     private val mPropertyViewModel by viewModel<PropertyViewModel>()
@@ -49,7 +46,7 @@ class AddProperty : AppCompatActivity() {
     private var room: Int = 0
     private var bedRoom: Int = 0
     private var bathRoom: Int = 0
-    private var price: Double = 0.0
+    private var price: String = ""
     private var propertyLat: Double = 0.0
     private var propertyLng: Double = 0.0
     private var propertyId: Long = 0
@@ -58,13 +55,18 @@ class AddProperty : AppCompatActivity() {
     private var date: String = ""
     private var agentName: String = ""
     private var description: String = ""
+    private var photoCover: String = ""
+    private var city: String = ""
 
     private var c = Calendar.getInstance()
     private var year = c.get(Calendar.YEAR)
-    private var month = c.get(Calendar.MONTH) + 1
+    private var month = c.get(Calendar.MONTH)
     var day = c.get(Calendar.DAY_OF_MONTH)
 
-    private val REQUEST_PERMISSION = 100
+    companion object {
+        val REQUEST_PERMISSION = 100
+    }
+
     private val REQUEST_IMAGE_CAPTURE = 1
     private val REQUEST_PICK_IMAGE = 2
     lateinit var notificationManager: NotificationManagerCompat
@@ -78,9 +80,9 @@ class AddProperty : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_property)
+        UtilsKotlin.checkPermission(this)
 
         selectDateOfEntry()
-        checkPermission()
         takePhoto()
         photoGallery()
         getName()
@@ -96,7 +98,7 @@ class AddProperty : AppCompatActivity() {
 
     }
 
-    private fun selectType(){
+    private fun selectType() {
         val adapterSpinner: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(this, R.array.type, android.R.layout.simple_spinner_item)
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerTypeCreate.adapter = adapterSpinner
@@ -107,11 +109,9 @@ class AddProperty : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 type = parent!!.getItemAtPosition(position).toString()
-                Log.e("testSp", type)
             }
         }
     }
-
 
 
     @SuppressLint("SetTextI18n")
@@ -119,6 +119,7 @@ class AddProperty : AppCompatActivity() {
         binding.tvDateCreate.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in TextView
+
                 binding.tvDateCreate.text = "$dayOfMonth/$monthOfYear/$year"
             }, year, month, day)
             dpd.show()
@@ -137,14 +138,6 @@ class AddProperty : AppCompatActivity() {
         }
     }
 
-    private fun checkPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.CAMERA),
-                    REQUEST_PERMISSION)
-        }
-    }
 
     private fun openGallery() {
         Intent(Intent.ACTION_GET_CONTENT).also { intent ->
@@ -183,28 +176,34 @@ class AddProperty : AppCompatActivity() {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 val uri = (currentPhotoPath)
-                // ivTest.setImageURI(uri)
+
                 galleryAddPic()
-                photo.add(Photo(0, uri, "test", 0))
+                photo.add(Photo(0, uri.toInt(), "test", 0))
+                Log.e("testPhoto3", uri)
+
                 val adapter = DetailAdapter(photo) { _ ->
                 }
                 binding.rvPhotoCreate.adapter = adapter
                 adapter.notifyDataSetChanged()
 
-            } else if (requestCode == REQUEST_PICK_IMAGE) {
-                val uri = data?.data
-                photo.add(Photo(0, uri.toString(), "test", 0))
-                val adapter = DetailAdapter(photo) { _ ->
-                }
-                binding.rvPhotoCreate.adapter = adapter
-                adapter.notifyDataSetChanged()
+                // } else if (requestCode == REQUEST_PICK_IMAGE) {
+                //     val uri = data?.data
+                //     photo.add(Photo(0, uri, "test", 0))
+                //     Log.e("testPhoto2", uri.toString())
+
+                //     val adapter = DetailAdapter(photo) {
+                //     }
+                //     binding.rvPhotoCreate.adapter = adapter
+                //     adapter.notifyDataSetChanged()
             }
 
         }
         val adapter = DetailAdapter(photo) { item ->
             val intent = Intent(this, FullScreenActivity::class.java)
-            intent.putExtra("iImage", item.urlPhoto)
+
+            intent.putExtra("iImage", item.urlPhoto.toInt())
             this.startActivity(intent)
+            Log.e("testPhoto", item.urlPhoto.toString())
         }
         binding.rvPhotoCreate.adapter = adapter
 
@@ -218,13 +217,14 @@ class AddProperty : AppCompatActivity() {
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
+            Log.e("PhotoCreate", currentPhotoPath)
+
         }
     }
 
     private fun galleryAddPic() {
         Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
             val f = File(currentPhotoPath)
-            Log.e("photo", currentPhotoPath)
             mediaScanIntent.data = Uri.fromFile(f)
             sendBroadcast(mediaScanIntent)
         }
@@ -234,11 +234,8 @@ class AddProperty : AppCompatActivity() {
     private fun getName() {
         mAgentViewModel.getAgent().observe(this, androidx.lifecycle.Observer { it ->
             if (it != null) {
-                val agentId1 = it.id
                 agentName = it.name
                 binding.tvAgentCreate.text = agentName
-                Log.e("testId",agentId1.toString())
-
             }
         })
     }
@@ -277,7 +274,8 @@ class AddProperty : AppCompatActivity() {
 
         if (binding.etSurfaceCreate.text.isEmpty() || binding.etRoomCreate.text.isEmpty() || binding.etBathroomCreate.text.isEmpty()
                 || binding.etBedroomCreate.text.isEmpty() || binding.etAddressCreate.text.isEmpty() || binding.tvDateCreate.text.isEmpty()
-                || binding.tvAgentCreate.text.isEmpty() || binding.etDescriptionCreate.text.isEmpty() || binding.etPriceCreate.text.isEmpty()) {
+                || binding.tvAgentCreate.text.isEmpty() || binding.etDescriptionCreate.text.isEmpty() || binding.etPriceCreate.text.isEmpty()
+                || binding.etCityCreate.text.isEmpty()) {
             Toast.makeText(this, "you must complete all values", Toast.LENGTH_LONG).show()
         } else {
 
@@ -289,19 +287,21 @@ class AddProperty : AppCompatActivity() {
             date = binding.tvDateCreate.text.toString()
             agentName = binding.tvAgentCreate.text.toString()
             description = binding.etDescriptionCreate.text.toString()
-            price = binding.etPriceCreate.text.toString().toDouble()
+            price = binding.etPriceCreate.text.toString()
+            agentName = binding.tvAgentCreate.text.toString()
+            city = binding.etCityCreate.text.toString()
 
             createPropertyBdd()
 
 
         }
     }
+
     // create in bdd and save in fireBase
     private fun createPropertyBdd() {
-        val property = Property(propertyId, "",price, type, surface, room, bathRoom, bedRoom, address, date, "", description,
-                "", propertyLat, propertyLng, agentId)
-        Log.e("spinner", description)
-        //propertyList.add(property)
+        val property = Property(propertyId, city, price, type, surface, room, bathRoom, bedRoom, address, date, photoCover, description,
+                "", propertyLat, propertyLng, agentId, agentName)
+
         mPropertyViewModel.createProperty(property)
 
         finish()

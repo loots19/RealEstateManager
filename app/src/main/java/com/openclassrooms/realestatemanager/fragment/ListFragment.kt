@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,38 +18,29 @@ import com.openclassrooms.realestatemanager.detailActivity.DetailActivity
 import com.openclassrooms.realestatemanager.model.Property
 import com.openclassrooms.realestatemanager.viewModels.PropertyViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.antlr.runtime.misc.IntArray
-
-
-
 
 class ListFragment : Fragment() {
 
     private lateinit var binding: FragmentListBinding
 
-
-    private val mPropertyViewModel by viewModel<PropertyViewModel>()
-
-     private val adapterList = AdapterList{item->
-         val intent = Intent(requireContext(),DetailActivity::class.java)
-         val jsonSelectedRestaurant = Gson().toJson(item)
-         intent.putExtra(DetailActivity.EXTRA_PROPERTY, jsonSelectedRestaurant)
-         this.startActivity(intent)
-     }
-
-
-
-
     companion object {
         fun newInstance(): ListFragment = ListFragment()
     }
 
+    private val mPropertyViewModel by viewModel<PropertyViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, com.openclassrooms.realestatemanager.R.layout.fragment_list, container, false)
         initialization()
         getProperty()
         return binding.root
+    }
+
+    private val adapterList = AdapterList { item ->
+        val intent = Intent(requireContext(), DetailActivity::class.java)
+        val jsonSelectedProperty = Gson().toJson(item)
+        intent.putExtra(DetailActivity.EXTRA_PROPERTY, jsonSelectedProperty)
+        this.startActivity(intent)
     }
 
 
@@ -61,8 +51,6 @@ class ListFragment : Fragment() {
                 adapterList.setProperties(it)
             }
         })
-
-
     }
 
     private fun initialization() {
@@ -72,7 +60,6 @@ class ListFragment : Fragment() {
         binding.rvList.addItemDecoration(dividerItemDecoration)
 
     }
-
 
 
 }

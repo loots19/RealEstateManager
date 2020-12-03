@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            tools:context=".AddProperty">
+            tools:context=".CreateProperty">
 
             <View
                 android:id="@+id/view5"
@@ -66,12 +66,12 @@
 
                     <View
                         android:id="@+id/viewHouse"
-                        android:layout_width="380dp"
+                        android:layout_width="160dp"
                         android:layout_height="@dimen/view_auth_layout_height"
-                        android:layout_marginTop="10dp"
                         android:background="@drawable/oval"
                         android:backgroundTint="@android:color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
+
+                        app:layout_constraintEnd_toStartOf="@+id/textView11"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView11"
                         tools:ignore="UnusedAttribute" />
@@ -92,11 +92,45 @@
                         android:id="@+id/spinner_type_create"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
                         android:theme="@style/Spinner"
                         app:layout_constraintBottom_toBottomOf="@+id/viewHouse"
                         app:layout_constraintEnd_toEndOf="@+id/viewHouse"
                         app:layout_constraintStart_toEndOf="@+id/imageView6"
                         app:layout_constraintTop_toTopOf="@+id/viewHouse" />
+
+                    <View
+                        android:id="@+id/viewCity"
+                        android:layout_width="160dp"
+                        android:layout_height="@dimen/view_auth_layout_height"
+                        android:background="@drawable/oval"
+                        android:backgroundTint="@android:color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/viewHouse"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView11"
+                        app:layout_constraintTop_toTopOf="@+id/viewHouse" />
+
+                    <ImageView
+                        android:id="@+id/imageViewCity"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/ic_location_city_black_24dp"
+                        android:tint="@android:color/black"
+                        app:layout_constraintBottom_toBottomOf="@+id/viewCity"
+                        app:layout_constraintStart_toStartOf="@+id/viewCity"
+                        app:layout_constraintTop_toTopOf="@+id/viewCity" />
+
+                    <EditText
+                        android:id="@+id/et_City_create"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/et_city"
+                        android:textColorHint="@android:color/black"
+                        app:layout_constraintBottom_toBottomOf="@+id/viewCity"
+                        app:layout_constraintEnd_toEndOf="@+id/viewCity"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewCity"
+                        app:layout_constraintTop_toTopOf="@+id/viewCity" />
 
                     <View
                         android:id="@+id/viewSurface"
@@ -106,7 +140,7 @@
                         android:background="@drawable/oval"
                         android:backgroundTint="@android:color/white"
                         app:layout_constraintEnd_toStartOf="@+id/textView11"
-                        app:layout_constraintStart_toStartOf="@+id/viewHouse"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/viewHouse"
                         tools:ignore="UnusedAttribute" />
 
@@ -140,12 +174,12 @@
                         android:id="@+id/viewRoom"
                         android:layout_width="160dp"
                         android:layout_height="@dimen/view_auth_layout_height"
-                        android:layout_marginTop="10dp"
                         android:background="@drawable/oval"
                         android:backgroundTint="@android:color/white"
-                        app:layout_constraintEnd_toEndOf="@+id/viewHouse"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView11"
-                        app:layout_constraintTop_toBottomOf="@+id/viewHouse"
+                        app:layout_constraintTop_toBottomOf="@+id/viewCity"
                         tools:ignore="UnusedAttribute" />
 
                     <ImageView
@@ -169,7 +203,7 @@
                         android:maxLines="1"
                         android:textColorHint="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/viewRoom"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/viewRoom"
                         app:layout_constraintStart_toEndOf="@+id/ivRoom"
                         app:layout_constraintTop_toTopOf="@+id/viewRoom"
                         tools:ignore="Autofill,LabelFor,TextFields" />
@@ -182,7 +216,7 @@
                         android:background="@drawable/oval"
                         android:backgroundTint="@android:color/white"
                         app:layout_constraintEnd_toStartOf="@+id/textView11"
-                        app:layout_constraintStart_toStartOf="@+id/viewSurface"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/viewSurface"
                         tools:ignore="UnusedAttribute" />
 
@@ -219,8 +253,7 @@
                         android:layout_marginTop="8dp"
                         android:background="@drawable/oval"
                         android:backgroundTint="@android:color/white"
-                        app:layout_constraintEnd_toEndOf="@+id/viewRoom"
-                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView11"
                         app:layout_constraintTop_toBottomOf="@+id/viewRoom"
                         tools:ignore="UnusedAttribute" />
@@ -246,7 +279,7 @@
                         android:maxLines="1"
                         android:textColorHint="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/viewBedRoom"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/viewBedRoom"
                         app:layout_constraintStart_toEndOf="@+id/ivBedRoom"
                         app:layout_constraintTop_toTopOf="@+id/viewBedRoom"
                         tools:ignore="Autofill,LabelFor,TextFields" />
@@ -295,7 +328,7 @@
                         android:background="@drawable/oval"
                         android:backgroundTint="@android:color/white"
                         app:layout_constraintEnd_toStartOf="@+id/textView11"
-                        app:layout_constraintStart_toStartOf="@+id/viewAddress"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/viewAddress"
                         tools:ignore="UnusedAttribute" />
 
@@ -331,7 +364,7 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/oval"
                         android:backgroundTint="@android:color/white"
-                        app:layout_constraintEnd_toEndOf="@+id/viewAddress"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView11"
                         app:layout_constraintTop_toBottomOf="@+id/viewAddress"
                         tools:ignore="UnusedAttribute" />
@@ -352,12 +385,14 @@
                         android:id="@+id/tv_agent_create"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="36dp"
                         android:hint="@string/tv_agent"
                         android:textColor="@android:color/black"
                         android:textColorHint="@android:color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/viewAgent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/viewAgent"
+                        app:layout_constraintHorizontal_bias="0.581"
                         app:layout_constraintStart_toEndOf="@+id/imageView3"
                         app:layout_constraintTop_toTopOf="@+id/viewAgent" />
 
@@ -365,9 +400,9 @@
                         android:id="@+id/viewPrice"
                         android:layout_width="380dp"
                         android:layout_height="@dimen/view_auth_layout_height"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/oval"
                         android:backgroundTint="@android:color/white"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/viewAgent"
@@ -377,9 +412,9 @@
                         android:id="@+id/ivPrice"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:layout_marginStart="10dp"
                         android:src="@drawable/dollar"
                         android:tint="@android:color/black"
-                        android:layout_marginStart="10dp"
                         app:layout_constraintBottom_toBottomOf="@+id/viewPrice"
                         app:layout_constraintStart_toStartOf="@+id/viewPrice"
                         app:layout_constraintTop_toTopOf="@+id/viewPrice"
@@ -390,16 +425,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/et_price"
-                        android:textColorHint="@android:color/black"
                         android:inputType="numberSigned"
                         android:maxLines="1"
+                        android:textColorHint="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/viewPrice"
                         app:layout_constraintEnd_toEndOf="@+id/viewPrice"
                         app:layout_constraintStart_toStartOf="@+id/viewPrice"
                         app:layout_constraintTop_toTopOf="@+id/viewPrice"
                         tools:ignore="Autofill,LabelFor,TextFields" />
-
-
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

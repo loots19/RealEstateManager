@@ -1,35 +1,29 @@
 package com.openclassrooms.realestatemanager
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import com.google.firebase.auth.FirebaseUser
-import com.openclassrooms.realestatemanager.auth.LoginViewModel
 import com.openclassrooms.realestatemanager.databinding.ActivityConversionBinding
-import com.openclassrooms.realestatemanager.model.Agent
+import com.openclassrooms.realestatemanager.detailActivity.DetailActivity.Companion.PREF_PRICE
 import com.openclassrooms.realestatemanager.utils.Utils
-import com.openclassrooms.realestatemanager.viewModels.AgentViewModel
-import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ConversionActivity : AppCompatActivity() {
     private lateinit var amount: String
     private var result: Int? = null
     private lateinit var binding: ActivityConversionBinding
+    private var price: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_conversion)
 
+        loadPref()
         actionOnBtnDollar()
         actionOnButtonEur()
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -64,6 +58,14 @@ class ConversionActivity : AppCompatActivity() {
         binding.btnEuroDollar.setOnClickListener {
             convertEurDollar()
         }
+    }
+
+    private fun loadPref() {
+        val sharedPreferences = getSharedPreferences(PREF_PRICE, Context.MODE_PRIVATE)
+        price = sharedPreferences.getString("price", "")
+        binding.etAmountConversion.setText(price!!)
+
+
     }
 
 

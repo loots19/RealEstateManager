@@ -4,14 +4,14 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "photo")
 data class Photo(
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "idPhoto")
+        @ColumnInfo(name = "photo_id")
         var idPhoto: Int,
-        @ColumnInfo(name = "urlPhoto")
-        var urlPhoto: String,
+        @ColumnInfo(name = "photo_url")
+        var urlPhoto: Int,
         var name: String,
-        @ColumnInfo(name = "propertyId")
+        @ColumnInfo(name = "property_id")
         var propertyId: Long) {
 }

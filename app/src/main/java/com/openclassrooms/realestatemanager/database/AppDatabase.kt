@@ -5,15 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.openclassrooms.realestatemanager.database.dao.FakePropertyApi
+import com.openclassrooms.realestatemanager.database.dao.PhotoDao
 import com.openclassrooms.realestatemanager.database.dao.PropertyDao
+import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.Property
 
-@Database(entities = [Property::class], version = 1, exportSchema = false)
+@Database(entities = [Property::class,Photo::class], version = 1, exportSchema = false)
 
 
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun propertyDao(): PropertyDao
+    abstract fun photoDao(): PhotoDao
 
 
     companion object {

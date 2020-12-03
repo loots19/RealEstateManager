@@ -16,6 +16,4 @@
         android:title="@string/bottom_navigation_menu_map"
         app:showAsAction="ifRoom" />
 
-
 </menu>
-

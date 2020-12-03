@@ -13,7 +13,7 @@ data class Property(
         @ColumnInfo(name = "city")
         var city: String = "",
         @ColumnInfo(name = "price")
-        var price: Double = 0.0,
+        var price: String = "",
         @ColumnInfo(name = "type")
         var type: String = "",
         @ColumnInfo(name = "surface")
@@ -39,15 +39,17 @@ data class Property(
         @ColumnInfo(name = "property_lng")
         var propertyLng : Double? = null,
         @ColumnInfo(name = "agent_id")
-        var agentId : Int = 0
+        var agentId : Int = 0,
+        @ColumnInfo(name = "agent_name")
+        var agentName : String = ""
 ){
 
         companion object{
                 fun fromContentValues(values: ContentValues) : Property{
-                        val property = Property(0,"",0.0,"",0,0,0,0,"","","","","",0.0,0.0,0)
+                        val property = Property(0,"","","",0,0,0,0,"","","","","",0.0,0.0,0)
                         if(values.containsKey("property_id"))property.id = values.getAsLong("id")
                         if(values.containsKey("city"))property.city = values.getAsString("city")
-                        if(values.containsKey("price"))property.price = values.getAsDouble("price")
+                        if(values.containsKey("price"))property.price = values.getAsString("price")
                         if(values.containsKey("type"))property.type = values.getAsString("type")
                         if(values.containsKey("surface"))property.surface = values.getAsInteger("surface")
                         if(values.containsKey("nbr_room"))property.nbrRoom = values.getAsInteger("nbr_room")
@@ -61,6 +63,7 @@ data class Property(
                         if(values.containsKey("property_lat"))property.propertyLat = values.getAsDouble("property_lat")
                         if(values.containsKey("property_lng"))property.propertyLng = values.getAsDouble("property_lng")
                         if(values.containsKey("agent_id"))property.agentId = values.getAsInteger("agent_id")
+                        if(values.containsKey("agent_name"))property.agentName = values.getAsString("agent_name")
 
 
                       return property

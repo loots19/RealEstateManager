@@ -23,7 +23,7 @@ class PropertyViewModel(application: Application) : ViewModel() {
     fun createProperty(property: Property) {
         propertyRepository.createProperty(property)
     }
-    fun udpdateProperty(property: Property){
+    fun updateProperty(property: Property){
         propertyRepository.updateProperty(property)
     }
 

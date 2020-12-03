@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -43,19 +44,31 @@ class AdapterList(private val listener: (Property) -> Unit)
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        @SuppressLint("SetTextI18n")
         fun bindItems(item: Property) {
-            val image = itemView.findViewById(R.id.iv_detail) as ImageView
+            val photoCover = itemView.findViewById(R.id.iv_detail) as ImageView
             val type = itemView.findViewById(R.id.tv_type_item_detail) as TextView
             val price = itemView.findViewById(R.id.tv_price_item_detail) as TextView
             val address = itemView.findViewById(R.id.tv_city_item_detail) as TextView
+            val dateSoldOut = itemView.findViewById(R.id.tv_date_sold_out_item_detail) as TextView
 
             type.text = item.type
-            price.text = item.price.toString()
+            price.text = item.price
             address.text = item.city
-            Glide.with(itemView.context).load(item.photoCover.toInt()).into(image)
-            Log.e("testPhoto", "" + item.photoCover)
+
+            dateSoldOut.text = item.dateSale
+            Log.e("dateAdapter",item.price)
+
+
+
+
+           // Glide.with(itemView.context).load(item.photoCover.toInt()).into(photoCover)
+
+
         }
+
     }
-
-
 }
+
+
+

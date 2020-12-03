@@ -20,6 +20,6 @@ interface PropertyDao {
     @Delete
     fun delete(property: Property): Int
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(property: Property): Int
 }
