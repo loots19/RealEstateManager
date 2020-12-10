@@ -14,6 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "API_KEY", API_KEY)
         multiDexEnabled true
 
         kotlinOptions {
@@ -136,8 +137,5 @@ dependencies {
     // work manager
     implementation 'android.arch.work:work-runtime-ktx:1.0.1'
 
-
-
-
-
+    implementation 'com.borjabravo:readmoretextview:2.1.0'
 }

@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // click event on bottomNavigation
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-
             R.id.action_list -> {
                 val listFragment = ListFragment.newInstance()
                 openFragment(listFragment)
@@ -68,7 +67,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 openFragment(mapFragment)
                 return@OnNavigationItemSelectedListener true
             }
-
         }
         false
     }
@@ -93,7 +91,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.simulator -> {
                 startActivity(Intent(this@MainActivity, SimulatorActivity::class.java))
-
             }
             R.id.logOut -> {
                 alertLogOut()
@@ -109,9 +106,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.search -> {
+                startActivity(Intent(this@MainActivity, SearchActivity::class.java))
 
             }
-
 
         }
         return super.onOptionsItemSelected(item)

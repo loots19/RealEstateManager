@@ -29,7 +29,7 @@ data class Property(
         @ColumnInfo(name = "date_entry")
         var dateEntry: String ="",
         @ColumnInfo(name = "photo_cover")
-        var photoCover: String = "",
+        var photoCover: String,
         @ColumnInfo(name = "description")
         var description: String,
         @ColumnInfo(name = "date_sale")

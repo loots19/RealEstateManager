@@ -1,12 +1,17 @@
 package com.openclassrooms.realestatemanager.fragment
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -50,7 +55,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun fetchLocation() {
-        UtilsKotlin.checkLocationPermission(requireActivity() as AppCompatActivity)
+        if (ContextCompat.checkSelfPermission(requireActivity(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),LOCATION_PERMISSION_REQUEST_CODE)
+            return
+        }
+
         mMap.isMyLocationEnabled = true
         fusedLocationProviderClient.lastLocation.addOnSuccessListener(requireActivity()) { location ->
             // Got last known location. In some rare situations this can be null.
@@ -84,17 +95,20 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         for (i in address.indices) {
             val addressTxt = address[i].address + address[i].city
             val addressLatLng = UtilsKotlin.getLocationFromAddress(requireActivity() as AppCompatActivity, addressTxt)
-            val marker = mMap.addMarker(addressLatLng?.let {
+            addressLatLng?.let {position ->
+                    val marker = mMap.addMarker(
 
-                MarkerOptions()
-                        .position(it)
-                        .title(addressTxt)
-                        .icon(UtilsKotlin.bitmapDescriptorFromVector(requireContext(), R.drawable.ic_location_city_black_24dp))
+                    MarkerOptions()
+                            .position(position)
+                            .title(addressTxt)
+                            .icon(UtilsKotlin.bitmapDescriptorFromVector(requireContext(), R.drawable.ic_location_city_black_24dp))
 
-            })
-            val gson = Gson()
-            val jsonSelectedRestaurant = gson.toJson(address[i])
-            marker.tag = jsonSelectedRestaurant
+                )
+                val gson = Gson()
+                val jsonSelectedRestaurant = gson.toJson(address[i])
+                marker.tag = jsonSelectedRestaurant
+            } ?: Toast.makeText(this.context,"no connection",Toast.LENGTH_SHORT).show()
+
         }
     }
 

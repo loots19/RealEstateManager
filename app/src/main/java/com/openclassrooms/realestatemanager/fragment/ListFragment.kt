@@ -56,8 +56,6 @@ class ListFragment : Fragment() {
     private fun initialization() {
         binding.rvList.adapter = adapterList
         binding.rvList.layoutManager = LinearLayoutManager(this.activity)
-        val dividerItemDecoration = DividerItemDecoration(binding.rvList.context, DividerItemDecoration.VERTICAL)
-        binding.rvList.addItemDecoration(dividerItemDecoration)
 
     }
 

@@ -73,7 +73,7 @@ val appModule = module {
 
     single { get<AppDatabase>().photoDao() }
 
-   
+
 
 
 

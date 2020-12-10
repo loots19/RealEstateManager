@@ -1,8 +1,6 @@
 package com.openclassrooms.realestatemanager.database.repositories
 
 import android.annotation.SuppressLint
-import android.app.Application
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.firebase.ui.auth.AuthUI.getApplicationContext
@@ -14,7 +12,7 @@ import com.openclassrooms.realestatemanager.model.Agent
 import java.util.*
 import java.util.Objects.requireNonNull
 
-class AgentRepository (){
+class AgentRepository() {
 
 
     private var userLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
@@ -37,7 +35,7 @@ class AgentRepository (){
     // ------------------
     fun createAgent(name: String, mail: String) {
         val uid: String = FirebaseAuth.getInstance().uid.toString()
-        val agentToCreate = Agent(null,name, mail)
+        val agentToCreate = Agent(null, name, mail)
         getAgentCollection().document(uid).set(agentToCreate)
     }
 
@@ -52,7 +50,7 @@ class AgentRepository (){
                     if (it.isSuccessful) {
                         userLiveData.postValue(FirebaseAuth.getInstance().currentUser)
                     } else {
-                        Toast.makeText(getApplicationContext().applicationContext, "Registration Failure: " + Objects.requireNonNull(it.exception), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(getApplicationContext().applicationContext, "Registration Failure: " + requireNonNull(it.exception), Toast.LENGTH_SHORT).show()
                     }
                 }
     }
@@ -90,10 +88,6 @@ class AgentRepository (){
         }
         return mutableLiveData
     }
-
-
-
-
 
 
 }

@@ -17,7 +17,10 @@ class PhotoRepository (application: Application){
 
     init{
         photoDao = db.photoDao()
-        allPhoto = photoDao.getAllPhoto()
+        allPhoto = photoDao.getAllPhoto(long)
+    }
+    fun getPhotoByPropertyId(propertyId: Long): LiveData<List<Photo>>{
+        return photoDao.getAllPhoto(propertyId)
     }
 
     fun getAllPhoto(): LiveData<List<Photo>>{
@@ -26,10 +29,12 @@ class PhotoRepository (application: Application){
 
     fun getPhoto(photoId: Long): LiveData<Photo> = photoDao.getPhoto(photoId)
 
-    fun createPhoto(photo: Photo): Long{
-        long = photoDao.addPhoto(photo)
-        return long
+    fun createPhoto(photo: Photo){
+        photoDao.addPhoto(photo)
+
     }
+    fun insertPhotos(propertyId : List<Photo>) = photoDao.addPhotos(propertyId)
+
     fun updatePhoto(photo: Photo){
         photoDao.update(photo)
     }

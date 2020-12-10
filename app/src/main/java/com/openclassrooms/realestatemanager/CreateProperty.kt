@@ -1,20 +1,22 @@
 package com.openclassrooms.realestatemanager
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.FileProvider
@@ -22,12 +24,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.detailActivity.DetailAdapter
-import com.openclassrooms.realestatemanager.detailActivity.FullScreenActivity
 import com.openclassrooms.realestatemanager.koin.App
 import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.Property
 import com.openclassrooms.realestatemanager.utils.UtilsKotlin
 import com.openclassrooms.realestatemanager.viewModels.AgentViewModel
+import com.openclassrooms.realestatemanager.viewModels.PhotoViewModel
 import com.openclassrooms.realestatemanager.viewModels.PropertyViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
@@ -39,6 +41,7 @@ class CreateProperty : AppCompatActivity() {
 
     private val mAgentViewModel by viewModel<AgentViewModel>()
     private val mPropertyViewModel by viewModel<PropertyViewModel>()
+    private val mPhotoViewModel by viewModel <PhotoViewModel>()
 
     private lateinit var binding: ActivityAddPropertyBinding
     private var type: String = ""
@@ -57,6 +60,10 @@ class CreateProperty : AppCompatActivity() {
     private var description: String = ""
     private var photoCover: String = ""
     private var city: String = ""
+    private var uri: String = ""
+    private var photoName = ""
+    private var photoId: Int = 0
+    private var photoUrl: String = ""
 
     private var c = Calendar.getInstance()
     private var year = c.get(Calendar.YEAR)
@@ -64,7 +71,9 @@ class CreateProperty : AppCompatActivity() {
     var day = c.get(Calendar.DAY_OF_MONTH)
 
     companion object {
-        val REQUEST_PERMISSION = 100
+        const val REQUEST_PERMISSION = 100
+        const val PERMISSION_CODE_READ = 10
+        const val PERMISSION_CODE_WRITE = 20
     }
 
     private val REQUEST_IMAGE_CAPTURE = 1
@@ -73,6 +82,7 @@ class CreateProperty : AppCompatActivity() {
     lateinit var currentPhotoPath: String
 
     private val photo = ArrayList<Photo>()
+    private var photos: MutableList<Photo> = mutableListOf()
     private val propertyList = ArrayList<Property>()
 
 
@@ -80,7 +90,10 @@ class CreateProperty : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_property)
+
+
         UtilsKotlin.checkPermission(this)
+        UtilsKotlin.checkPermissionForImage(this)
 
         selectDateOfEntry()
         takePhoto()
@@ -125,6 +138,9 @@ class CreateProperty : AppCompatActivity() {
             dpd.show()
         }
     }
+    // ---------------
+    // -----PHOTO-----
+    // ---------------
 
     private fun takePhoto() {
         binding.tvPhoto.setOnClickListener {
@@ -134,17 +150,16 @@ class CreateProperty : AppCompatActivity() {
 
     private fun photoGallery() {
         binding.tvPhotoFolder.setOnClickListener {
-            openGallery()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                openGallery()
+            }
         }
     }
 
-
     private fun openGallery() {
-        Intent(Intent.ACTION_GET_CONTENT).also { intent ->
-            intent.type = "image/*"
-            intent.resolveActivity(packageManager)?.also {
-                startActivityForResult(intent, REQUEST_PICK_IMAGE)
-            }
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivityForResult(intent, REQUEST_PICK_IMAGE)
         }
     }
 
@@ -175,38 +190,32 @@ class CreateProperty : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
-                val uri = (currentPhotoPath)
-
+                uri = (currentPhotoPath)
+                photoUrl = uri
                 galleryAddPic()
-                photo.add(Photo(0, uri.toInt(), "test", 0))
-                Log.e("testPhoto3", uri)
-
-                val adapter = DetailAdapter(photo) { _ ->
+                alertDialogPhoto()
+                val adapter = DetailAdapter(photo) {
                 }
                 binding.rvPhotoCreate.adapter = adapter
                 adapter.notifyDataSetChanged()
 
-                // } else if (requestCode == REQUEST_PICK_IMAGE) {
-                //     val uri = data?.data
-                //     photo.add(Photo(0, uri, "test", 0))
-                //     Log.e("testPhoto2", uri.toString())
+            } else if (requestCode == REQUEST_PICK_IMAGE) {
+                uri = data?.data.toString()
+                photoUrl = uri
+                alertDialogPhoto()
 
-                //     val adapter = DetailAdapter(photo) {
-                //     }
-                //     binding.rvPhotoCreate.adapter = adapter
-                //     adapter.notifyDataSetChanged()
+                val adapter = DetailAdapter(photo) {
+                }
+                binding.rvPhotoCreate.adapter = adapter
+                adapter.notifyDataSetChanged()
             }
-
         }
         val adapter = DetailAdapter(photo) { item ->
-            val intent = Intent(this, FullScreenActivity::class.java)
+            alertDAddPhoto()
+            photoCover = item.urlPhoto
 
-            intent.putExtra("iImage", item.urlPhoto.toInt())
-            this.startActivity(intent)
-            Log.e("testPhoto", item.urlPhoto.toString())
         }
         binding.rvPhotoCreate.adapter = adapter
-
     }
 
     @Throws(IOException::class)
@@ -217,8 +226,6 @@ class CreateProperty : AppCompatActivity() {
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
-            Log.e("PhotoCreate", currentPhotoPath)
-
         }
     }
 
@@ -230,7 +237,9 @@ class CreateProperty : AppCompatActivity() {
         }
     }
 
+    // ------------------------------------
     // get the name of agent and display it
+    // ------------------------------------
     private fun getName() {
         mAgentViewModel.getAgent().observe(this, androidx.lifecycle.Observer { it ->
             if (it != null) {
@@ -244,7 +253,6 @@ class CreateProperty : AppCompatActivity() {
         binding.floatingActionButton.setOnClickListener {
             // createNotification()
             addProperty()
-
         }
     }
 
@@ -271,14 +279,12 @@ class CreateProperty : AppCompatActivity() {
     }
 
     private fun getAllInfoToCreate() {
-
         if (binding.etSurfaceCreate.text.isEmpty() || binding.etRoomCreate.text.isEmpty() || binding.etBathroomCreate.text.isEmpty()
                 || binding.etBedroomCreate.text.isEmpty() || binding.etAddressCreate.text.isEmpty() || binding.tvDateCreate.text.isEmpty()
                 || binding.tvAgentCreate.text.isEmpty() || binding.etDescriptionCreate.text.isEmpty() || binding.etPriceCreate.text.isEmpty()
                 || binding.etCityCreate.text.isEmpty()) {
             Toast.makeText(this, "you must complete all values", Toast.LENGTH_LONG).show()
         } else {
-
             surface = binding.etSurfaceCreate.text.toString().toInt()
             room = binding.etRoomCreate.text.toString().toInt()
             bathRoom = binding.etBathroomCreate.text.toString().toInt()
@@ -291,9 +297,9 @@ class CreateProperty : AppCompatActivity() {
             agentName = binding.tvAgentCreate.text.toString()
             city = binding.etCityCreate.text.toString()
 
+
             createPropertyBdd()
-
-
+            createPhotoBdd()
         }
     }
 
@@ -301,12 +307,50 @@ class CreateProperty : AppCompatActivity() {
     private fun createPropertyBdd() {
         val property = Property(propertyId, city, price, type, surface, room, bathRoom, bedRoom, address, date, photoCover, description,
                 "", propertyLat, propertyLng, agentId, agentName)
-
         mPropertyViewModel.createProperty(property)
-
         finish()
     }
+    private fun createPhotoBdd(){
+        val photo = Photo(photoId,photoUrl,photoName,propertyId)
+        photos.add(photo)
+        mPhotoViewModel.addAllPhotos(photos)
+        Log.e("testVM","" + photos)
+    }
+
+    private fun alertDialogPhoto() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        builder.setTitle("Description of photo")
+        val dialogLayout = inflater.inflate(R.layout.custom_alert_dialogue, null)
+        val editText = dialogLayout.findViewById<EditText>(R.id.editText)
+        builder.setView(dialogLayout)
+        builder.setPositiveButton("OK") { dialogInterface, i ->
+            photoName = editText.text.toString()
+            if (photoName.isNotEmpty()) {
+                photo.add(Photo(0, uri, photoName, 0))
+            } else {
+                Toast.makeText(this, "you must add description", Toast.LENGTH_LONG).show()
+            }
+        }
+        builder.show()
+    }
+
+    private fun alertDAddPhoto() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(" Add Photo Cover")
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(applicationContext,
+                    android.R.string.yes, Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            Toast.makeText(applicationContext,
+                    android.R.string.no, Toast.LENGTH_SHORT).show()
+        }
+        builder.show()
+    }
 }
+
+
 
 
 

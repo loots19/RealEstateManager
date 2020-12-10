@@ -2,62 +2,126 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="5dp">
+    android:layout_marginBottom="20dp">
 
-    <ImageView
-        android:id="@+id/iv_detail"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardV_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="10dp"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_type_item_detail"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_detail"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-    <TextView
-        android:id="@+id/tv_city_item_detail"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_detail"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_price_item_detail"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_detail"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/iv_item_list"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_date_sold_out_item_detail"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:rotation="30"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintStart_toStartOf="@+id/tv_price_item_detail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price_item_detail" />
+            <TextView
+                android:id="@+id/tv_type_item_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_city_item_list" />
+
+            <TextView
+                android:id="@+id/tv_city_item_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_price_item_list"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_price_item_list" />
+
+            <TextView
+                android:id="@+id/tv_price_item_list"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_item_list" />
+
+            <TextView
+                android:id="@+id/tv_date_sold_out_item_list"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:rotation="30"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_item_list"
+                app:layout_constraintEnd_toEndOf="@+id/iv_item_list"
+                app:layout_constraintStart_toStartOf="@+id/iv_item_list"
+                app:layout_constraintTop_toTopOf="@+id/iv_item_list" />
+
+            <ImageView
+                android:id="@+id/iv_bed"
+                android:layout_width="@dimen/image_view_layout_width"
+                android:layout_height="@dimen/image_view_layout_height"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/bed"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_type_item_list"
+                app:layout_constraintStart_toEndOf="@+id/tv_type_item_list"
+                app:layout_constraintTop_toTopOf="@+id/tv_type_item_list" />
+
+            <TextView
+                android:id="@+id/tv_nbr_bed_item_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_bed"
+                app:layout_constraintStart_toEndOf="@+id/iv_bed"
+                app:layout_constraintTop_toTopOf="@+id/iv_bed" />
+
+            <ImageView
+                android:id="@+id/iv_bath"
+                android:layout_width="@dimen/image_view_layout_width"
+                android:layout_height="@dimen/image_view_layout_height"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/bathtub"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_nbr_bed_item_list"
+                app:layout_constraintStart_toEndOf="@+id/tv_nbr_bed_item_list"
+                app:layout_constraintTop_toTopOf="@+id/tv_nbr_bed_item_list" />
+
+            <TextView
+                android:id="@+id/Tv_nbr_bath_item_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_bath"
+                app:layout_constraintStart_toEndOf="@+id/iv_bath"
+                app:layout_constraintTop_toTopOf="@+id/iv_bath" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,14 +12,21 @@ class PhotoViewModel (application: Application) : ViewModel() {
     private var allPhoto: LiveData<List<Photo>> = photoRepository.getAllPhoto()
 
 
+
     fun getAllPhoto(): LiveData<List<Photo>> {
         return allPhoto
+    }
+    fun getPhotoByPropertyId(propertyId: Long): LiveData<List<Photo>>{
+        return photoRepository.getPhotoByPropertyId(propertyId )
     }
 
     fun getPhoto(photoId: Long): LiveData<Photo> = photoRepository.getPhoto(photoId)
 
     fun createPhoto(photo: Photo){
         photoRepository.createPhoto(photo)
+    }
+    fun addAllPhotos(propertyId: List<Photo>){
+        photoRepository.insertPhotos(propertyId)
     }
     fun updatePhoto(photo: Photo){
         photoRepository.updatePhoto(photo)

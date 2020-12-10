@@ -1,23 +1,22 @@
 package com.openclassrooms.realestatemanager.detailActivity
 
-import android.content.Context
-import android.content.Intent
+import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
 import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Photo
-import kotlinx.android.synthetic.main.item_rv_detail.view.*
 
 class DetailAdapter(
-        private val imageList: ArrayList<Photo>,
+        private var photoList: List<Photo>,
         private val listener: (Photo) -> Unit
 ) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
+
 
 
     //this method is returning the view for each item in the list
@@ -28,18 +27,25 @@ class DetailAdapter(
 
     //this method is giving the size of the list
     override fun getItemCount(): Int {
-        return imageList.size
+        Log.e("size", "" + photoList.size)
+        return photoList.size
+
     }
+
+    fun setProperties(photo: List<Photo>) {
+        this.photoList = photo
+        notifyDataSetChanged()
+    }
+
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItems(imageList[position])
-        val item = imageList[position]
+        holder.bindItems(photoList[position])
+        val item = photoList[position]
         holder.itemView.setOnClickListener {
             listener(item)
 
         }
-
     }
 
     //the class is holding the list view
@@ -48,12 +54,30 @@ class DetailAdapter(
         fun bindItems(item: Photo) {
             val ivPhoto = itemView.findViewById(R.id.iv_item_detail) as ImageView
             val etText = itemView.findViewById(R.id.tv_item_detail) as TextView
+            val resources: Resources = itemView.resources
+            Log.e("listSize", "" + item.name)
+
 
             etText.text = item.name
-            Glide.with(ivPhoto).load(item.urlPhoto).into(itemView.iv_item_detail)
 
+            if (item.urlPhoto.contains("images")) {
+                Glide.with(itemView.context)
+                        .load(item.urlPhoto)
+                        .fitCenter()
+                        .into(ivPhoto)
+
+            } else {
+                // this because drawable in my fakePropertyApi
+                val photo = resources.getIdentifier(item.urlPhoto, "drawable", "")
+                Glide.with(itemView.context)
+                        .load(photo)
+                        .fitCenter()
+                        .into(ivPhoto)
+            }
 
         }
 
+
     }
+
 }

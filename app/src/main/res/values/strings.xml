@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">RealEstateManager</string>
     <string name="splash_text">Let\'s sel</string>
+    <string name="API_KEY">ApiKey</string>
+
 
     <!-- BOTTOM NAVIGATION VIEW -->
     <string name="bottom_navigation_menu_listView">ListView</string>
@@ -35,7 +37,7 @@
     <string name="tv_price_detail">Price</string>
     <string name="tv_agent_detail">Manage by</string>
 
-    <!-- Avtivity Simulator -->
+    <!-- Activity Simulator -->
     <string name="tittle_simulator">Monthly payments of your mortgage</string>
     <string name="tv_amount">Amount of your loan</string>
     <string name="tv_time">Duration of your loan</string>
@@ -83,6 +85,7 @@
     <string name="tv_date">Date</string>
     <string name="tv_agent">Agent</string>
     <string name="tv_media">Media</string>
+    <string name="tv_photo_cover">Photo Cover</string>
     <string name="tv_take_picture">Take a picture</string>
     <string name="tv_from_storage">From storage</string>
     <string name="tv_description">Description</string>

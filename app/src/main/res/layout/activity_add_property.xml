@@ -149,7 +149,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginStart="10dp"
-                        android:src="@drawable/clipart3584701"
+                        android:src="@drawable/surfaceicon"
                         android:tint="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/viewSurface"
                         app:layout_constraintStart_toStartOf="@+id/viewSurface"
@@ -174,9 +174,9 @@
                         android:id="@+id/viewRoom"
                         android:layout_width="160dp"
                         android:layout_height="@dimen/view_auth_layout_height"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/oval"
                         android:backgroundTint="@android:color/white"
-                        android:layout_marginTop="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView11"
                         app:layout_constraintTop_toBottomOf="@+id/viewCity"
@@ -442,7 +442,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="350dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -455,7 +455,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="300dp">
+                    android:layout_height="350dp">
 
                     <TextView
                         android:id="@+id/textView10"
@@ -547,10 +547,11 @@
                         android:id="@+id/rv_photo_create"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/recycler_view_layout_height"
+                        android:layout_marginTop="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/viewPhotoFolder" />
+                        app:layout_constraintTop_toBottomOf="@+id/viewPhoto" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -582,6 +583,7 @@
                         android:layout_marginTop="10dp"
                         android:textColor="@color/colorAccent"
                         android:textSize="18sp"
+                        android:text="Description"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

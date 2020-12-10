@@ -1,10 +1,8 @@
 package com.openclassrooms.realestatemanager.auth
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +12,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityAuthBinding
+import com.openclassrooms.realestatemanager.utils.Utils
 import com.openclassrooms.realestatemanager.utils.UtilsKotlin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -58,6 +57,7 @@ class AuthActivity : AppCompatActivity() {
         }
         if (TextUtils.isEmpty(passWord)) {
             Toast.makeText(applicationContext, "please enter password", Toast.LENGTH_SHORT).show()
+            return
         }
         mLoginViewModel.register(mail, passWord)
 
@@ -67,7 +67,7 @@ class AuthActivity : AppCompatActivity() {
     // ----- Configuring Observers -----
     // ---------------------------------
     private fun checkAvailableNetwork() {
-        if (UtilsKotlin.verifyAvailableNetwork(this)) {
+        if (UtilsKotlin.verifyAvailableNetwork(this) || (Utils.isInternetAvailable(this))) {
             Toast.makeText(this, "connected to network", Toast.LENGTH_SHORT).show()
             registerAgent()
 
@@ -80,7 +80,6 @@ class AuthActivity : AppCompatActivity() {
     private fun registerAgent() {
         mLoginViewModel.getUserLiveData()?.observe(this, Observer<FirebaseUser> { fireBaseUser ->
             if (fireBaseUser != null) {
-
                 createAgent()
                 launchMainActivity()
             }

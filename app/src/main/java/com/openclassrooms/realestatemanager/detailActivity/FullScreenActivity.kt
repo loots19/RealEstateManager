@@ -5,6 +5,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
 
 class FullScreenActivity : AppCompatActivity() {
@@ -17,11 +18,14 @@ class FullScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_full_screen)
         ButterKnife.bind(this)
 
-
-
         val intent = intent
         val dImage = intent.getIntExtra("iImage", 0)
-        ivFullScreen.setImageResource(dImage)
+
+        Glide.with(this)
+                .load(dImage)
+                .fitCenter()
+                .into(ivFullScreen)
+
 
     }
 

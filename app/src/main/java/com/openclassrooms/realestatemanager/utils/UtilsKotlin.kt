@@ -10,19 +10,26 @@ import android.graphics.PorterDuff
 import android.location.Address
 import android.location.Geocoder
 import android.net.ConnectivityManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.checkSelfPermission
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.openclassrooms.realestatemanager.BuildConfig
+import com.openclassrooms.realestatemanager.CreateProperty.Companion.PERMISSION_CODE_READ
+import com.openclassrooms.realestatemanager.CreateProperty.Companion.PERMISSION_CODE_WRITE
 import com.openclassrooms.realestatemanager.CreateProperty.Companion.REQUEST_PERMISSION
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.fragment.MapsFragment
 import java.io.IOException
 
 class UtilsKotlin {
     companion object {
+
+
+        const val API_KEY = BuildConfig.API_KEY
 
         fun verifyAvailableNetwork(activity: AppCompatActivity): Boolean {
             val connectivityManager = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -47,7 +54,7 @@ class UtilsKotlin {
 
         // permissions camera
         fun checkPermission(activity: AppCompatActivity) {
-            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
+            if (checkSelfPermission(activity, Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity,
                         arrayOf(Manifest.permission.CAMERA),
@@ -55,16 +62,18 @@ class UtilsKotlin {
             }
         }
 
-        // location permissions
-        fun checkLocationPermission(activity: AppCompatActivity) {
-            if (ContextCompat.checkSelfPermission(activity,
-                            Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity,
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), MapsFragment.LOCATION_PERMISSION_REQUEST_CODE)
-                return
+        fun checkPermissionForImage(activity: AppCompatActivity) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if ((checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+                        && (checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)) {
+                    ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PERMISSION_CODE_READ)
+                    ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PERMISSION_CODE_WRITE)
 
+                }
             }
         }
+
+
         // get lat and lng from address
         fun getLocationFromAddress(activity: AppCompatActivity, strAddress: String): LatLng? {
             val coder = Geocoder(activity)
@@ -88,7 +97,6 @@ class UtilsKotlin {
             return p1
         }
     }
-
 
 
 }
