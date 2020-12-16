@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.detailActivity
 
 import android.content.res.Resources
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +12,10 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Photo
 
 class DetailAdapter(
+
         private var photoList: List<Photo>,
         private val listener: (Photo) -> Unit
 ) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
-
 
 
     //this method is returning the view for each item in the list
@@ -27,7 +26,6 @@ class DetailAdapter(
 
     //this method is giving the size of the list
     override fun getItemCount(): Int {
-        Log.e("size", "" + photoList.size)
         return photoList.size
 
     }
@@ -55,15 +53,16 @@ class DetailAdapter(
             val ivPhoto = itemView.findViewById(R.id.iv_item_detail) as ImageView
             val etText = itemView.findViewById(R.id.tv_item_detail) as TextView
             val resources: Resources = itemView.resources
-            Log.e("listSize", "" + item.name)
+            val icon = itemView.findViewById(R.id.iv_select) as ImageView
 
+            //iv.visibility = View.GONE
 
             etText.text = item.name
 
             if (item.urlPhoto.contains("images")) {
                 Glide.with(itemView.context)
                         .load(item.urlPhoto)
-                        .fitCenter()
+                        .centerCrop()
                         .into(ivPhoto)
 
             } else {
@@ -71,7 +70,7 @@ class DetailAdapter(
                 val photo = resources.getIdentifier(item.urlPhoto, "drawable", "")
                 Glide.with(itemView.context)
                         .load(photo)
-                        .fitCenter()
+                        .centerCrop()
                         .into(ivPhoto)
             }
 

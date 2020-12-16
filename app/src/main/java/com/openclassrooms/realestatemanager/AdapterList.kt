@@ -67,7 +67,7 @@ class AdapterList(private val listener: (Property) -> Unit)
             dateSoldOut.text = item.dateSale
             nbrBed.text = item.nbrBedRoom.toString()
             nbrBath.text = item.nbrBathRoom.toString()
-            Log.e("PhotoAdapter",item.photoCover)
+
 
             if(item.photoCover.contains("images")){
             Glide.with(itemView.context)

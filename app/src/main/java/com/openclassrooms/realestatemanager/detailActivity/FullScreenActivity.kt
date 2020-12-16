@@ -1,35 +1,35 @@
 package com.openclassrooms.realestatemanager.detailActivity
 
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import butterknife.BindView
-import butterknife.ButterKnife
+import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.databinding.ActivityFullScreenBinding
 
 class FullScreenActivity : AppCompatActivity() {
-
-    @BindView(R.id.ivFullScreenActivity)
-    lateinit var ivFullScreen : ImageView
+    private lateinit var binding: ActivityFullScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_full_screen)
-        ButterKnife.bind(this)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_full_screen)
+        actionOnBtnBack()
 
         val intent = intent
         val dImage = intent.getIntExtra("iImage", 0)
 
         Glide.with(this)
-                .load(dImage)
+                .load(dImage.toString().toInt())
                 .fitCenter()
-                .into(ivFullScreen)
-
+                .into(binding.ivFullScreenActivity)
 
     }
 
-
+    fun actionOnBtnBack() {
+        binding.imageButtonBack.setOnClickListener {
+            finish()
+        }
+    }
 
 
 }

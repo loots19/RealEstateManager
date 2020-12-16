@@ -25,8 +25,8 @@ class PhotoViewModel (application: Application) : ViewModel() {
     fun createPhoto(photo: Photo){
         photoRepository.createPhoto(photo)
     }
-    fun addAllPhotos(propertyId: List<Photo>){
-        photoRepository.insertPhotos(propertyId)
+    fun addAllPhotos(photos: List<Photo>){
+        photoRepository.insertPhotos(photos)
     }
     fun updatePhoto(photo: Photo){
         photoRepository.updatePhoto(photo)

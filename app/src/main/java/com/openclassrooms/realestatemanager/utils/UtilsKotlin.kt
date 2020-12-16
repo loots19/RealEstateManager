@@ -30,6 +30,8 @@ class UtilsKotlin {
 
 
         const val API_KEY = BuildConfig.API_KEY
+        const val baseUrl:String = "https://maps.googleapis.com/maps/api/"
+        const val radius:Int = 50000
 
         fun verifyAvailableNetwork(activity: AppCompatActivity): Boolean {
             val connectivityManager = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

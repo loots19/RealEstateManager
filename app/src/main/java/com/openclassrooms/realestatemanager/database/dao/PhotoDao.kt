@@ -16,7 +16,10 @@ interface PhotoDao {
 
 
     @Query("SELECT * FROM photo WHERE property_id = :propertyId")
-    fun getAllPhoto(propertyId: Long): LiveData<List<Photo>>
+    fun getAllPhotoByProperty(propertyId: Long): LiveData<List<Photo>>
+
+    @Query("SELECT * FROM photo")
+    fun getAllPhotos() : LiveData<List<Photo>>
 
 
     @Query("SELECT * FROM photo WHERE photo_id = :id")

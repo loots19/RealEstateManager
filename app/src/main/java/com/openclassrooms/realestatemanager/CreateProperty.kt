@@ -3,20 +3,16 @@ package com.openclassrooms.realestatemanager
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.FileProvider
@@ -41,7 +37,7 @@ class CreateProperty : AppCompatActivity() {
 
     private val mAgentViewModel by viewModel<AgentViewModel>()
     private val mPropertyViewModel by viewModel<PropertyViewModel>()
-    private val mPhotoViewModel by viewModel <PhotoViewModel>()
+    private val mPhotoViewModel by viewModel<PhotoViewModel>()
 
     private lateinit var binding: ActivityAddPropertyBinding
     private var type: String = ""
@@ -62,7 +58,7 @@ class CreateProperty : AppCompatActivity() {
     private var city: String = ""
     private var uri: String = ""
     private var photoName = ""
-    private var photoId: Int = 0
+    private var photoId: Long = 0
     private var photoUrl: String = ""
 
     private var c = Calendar.getInstance()
@@ -93,7 +89,7 @@ class CreateProperty : AppCompatActivity() {
 
 
         UtilsKotlin.checkPermission(this)
-        UtilsKotlin.checkPermissionForImage(this)
+
 
         selectDateOfEntry()
         takePhoto()
@@ -104,6 +100,7 @@ class CreateProperty : AppCompatActivity() {
 
 
         binding.rvPhotoCreate.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
+
 
         //initialize notification manager
         notificationManager = NotificationManagerCompat.from(this)
@@ -192,6 +189,7 @@ class CreateProperty : AppCompatActivity() {
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 uri = (currentPhotoPath)
                 photoUrl = uri
+
                 galleryAddPic()
                 alertDialogPhoto()
                 val adapter = DetailAdapter(photo) {
@@ -210,12 +208,16 @@ class CreateProperty : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
         }
+
         val adapter = DetailAdapter(photo) { item ->
             alertDAddPhoto()
             photoCover = item.urlPhoto
 
         }
         binding.rvPhotoCreate.adapter = adapter
+
+        adapter.notifyDataSetChanged()
+
     }
 
     @Throws(IOException::class)
@@ -297,9 +299,9 @@ class CreateProperty : AppCompatActivity() {
             agentName = binding.tvAgentCreate.text.toString()
             city = binding.etCityCreate.text.toString()
 
-
             createPropertyBdd()
-            createPhotoBdd()
+
+
         }
     }
 
@@ -307,16 +309,15 @@ class CreateProperty : AppCompatActivity() {
     private fun createPropertyBdd() {
         val property = Property(propertyId, city, price, type, surface, room, bathRoom, bedRoom, address, date, photoCover, description,
                 "", propertyLat, propertyLng, agentId, agentName)
-        mPropertyViewModel.createProperty(property)
+
+        mPropertyViewModel.createProperty(property, photos)
+        mPhotoViewModel.addAllPhotos(photos)
+
         finish()
     }
-    private fun createPhotoBdd(){
-        val photo = Photo(photoId,photoUrl,photoName,propertyId)
-        photos.add(photo)
-        mPhotoViewModel.addAllPhotos(photos)
-        Log.e("testVM","" + photos)
-    }
 
+
+    @SuppressLint("InflateParams")
     private fun alertDialogPhoto() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
@@ -324,10 +325,12 @@ class CreateProperty : AppCompatActivity() {
         val dialogLayout = inflater.inflate(R.layout.custom_alert_dialogue, null)
         val editText = dialogLayout.findViewById<EditText>(R.id.editText)
         builder.setView(dialogLayout)
-        builder.setPositiveButton("OK") { dialogInterface, i ->
+        builder.setPositiveButton("OK") { _, _ ->
             photoName = editText.text.toString()
             if (photoName.isNotEmpty()) {
                 photo.add(Photo(0, uri, photoName, 0))
+                val photo = Photo(photoId, photoUrl, photoName, propertyId)
+                photos.add(photo)
             } else {
                 Toast.makeText(this, "you must add description", Toast.LENGTH_LONG).show()
             }
@@ -338,11 +341,11 @@ class CreateProperty : AppCompatActivity() {
     private fun alertDAddPhoto() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(" Add Photo Cover")
-        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+        builder.setPositiveButton(android.R.string.yes) { _, _ ->
             Toast.makeText(applicationContext,
                     android.R.string.yes, Toast.LENGTH_SHORT).show()
         }
-        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+        builder.setNegativeButton(android.R.string.no) { _, _ ->
             Toast.makeText(applicationContext,
                     android.R.string.no, Toast.LENGTH_SHORT).show()
         }

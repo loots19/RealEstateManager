@@ -6,15 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
@@ -35,7 +32,6 @@ import kotlin.collections.ArrayList
 
 
 class DetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetailBinding
     private var type: String = ""
     private var city: String = ""
     private var surface: Int = 0
@@ -60,11 +56,12 @@ class DetailActivity : AppCompatActivity() {
     private var day = c.get(Calendar.DAY_OF_MONTH)
     private val photo = ArrayList<Photo>()
 
-    private lateinit var photos : MutableList<Photo>
+    private lateinit var binding: ActivityDetailBinding
+    private lateinit var photos: MutableList<Photo>
     private lateinit var addressTxt: String
     private lateinit var latlng: LatLng
     private lateinit var resultLatLng: String
-    //private lateinit var adapter: DetailAdapter
+
 
     companion object {
         const val EXTRA_PROPERTY = "property"
@@ -80,102 +77,87 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
+        // this for plain layout
+        window.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
 
         initializationRv()
         unableViewVisibility()
-        configureToolbar()
+        actionOfUser()
         getIncomingIntent()
         showStaticMaps()
-        launchActivities()
-        actionOnCBox()
-        actionOnFab()
-        actionOnChip()
         checkAgentCanEdit()
+        setImageCover()
+        launchConvertActivity()
 
 
         photos = mutableListOf()
 
 
+    }
 
+    private fun actionOfUser() {
+        actionOnBtnEdit()
+        actionOnBackBtn()
+        actionOnFab()
+        actionOnCBox()
+    }
+
+    @SuppressLint("WrongConstant")
+    private fun initializationRv() {
+        binding.rvDetail.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
+        binding.rvDetail.adapter = adapter
 
     }
 
-  @SuppressLint("WrongConstant")
-  private fun initializationRv(){
-      binding.rvDetail.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
-      binding.rvDetail.adapter = adapter
-
-  }
-        val adapter = DetailAdapter(photo) { item ->
+    private val adapter = DetailAdapter(photo) { item ->
         val intent = Intent(this, FullScreenActivity::class.java)
         intent.putExtra("iImage", item.urlPhoto.toInt())
         this.startActivity(intent)
 
     }
 
-    //--------------------------
-    //----- LaunchActivities -----
-    //--------------------------
-    private fun launchActivities() {
-        //launchDetailDesc()
-        //launchFullScreenActivity()
-
-        binding.imageViewConvert.setOnClickListener {
-            launchConvertActivity()
-        }
-    }
-
     private fun launchConvertActivity() {
-        price = binding.etPriceDetail.text.toString()
-        val sharedPreferences = getSharedPreferences(PREF_PRICE, Context.MODE_PRIVATE).edit()
-        sharedPreferences.putString("price", price)
-                .apply()
-        startActivity(Intent(this@DetailActivity, ConversionActivity::class.java))
-    }
-
-    private fun launchDetailDesc() {
-        binding.tvDescDetail.setOnClickListener {
-            description = binding.tvDescDetail.text.toString()
-
-            val sharedPreferences = getSharedPreferences(PREF_DESC, Context.MODE_PRIVATE).edit()
-            sharedPreferences.putString("description", description)
-            sharedPreferences.putString("photoCover", photoCover)
+        binding.imageViewConvert.setOnClickListener {
+            price = binding.etPriceDetail.text.toString()
+            val sharedPreferences = getSharedPreferences(PREF_PRICE, Context.MODE_PRIVATE).edit()
+            sharedPreferences.putString("price", price)
                     .apply()
-            startActivity(Intent(this@DetailActivity, DescriptionDetailActivity::class.java))
-
+            startActivity(Intent(this@DetailActivity, ConversionActivity::class.java))
         }
     }
 
+    private fun setImageCover() {
+        if (photoCover.contains("images")) {
+            Glide.with(this)
+                    .load(photoCover)
+                    .centerCrop()
+                    .into(iv_plain_Detail)
 
+        } else {
+            // this because drawable in my fakePropertyApi
+            val photo = resources.getIdentifier(photoCover, "drawable", "")
+            Glide.with(this)
+                    .load(photo)
+                    .centerCrop()
+                    .into(iv_plain_Detail)
+        }
 
-    //----------------------------
-    // ----- Initialize View -----
-    //----------------------------
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_edit, menu)
-        return true
-    }
-
-    // initialize toolBar
-    private fun configureToolbar() {
-        setSupportActionBar(toolbar as Toolbar?)
     }
 
     // --------------------
     // ----- EditInfo -----
     // --------------------
 
-    //click event on item in toolbar
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.edit -> {
-                binding.cardView4.visibility = View.VISIBLE
-                binding.buttonUpdate.visibility = View.VISIBLE
-                binding.IViewCalendar.visibility = View.GONE
-            }
+    //click event on edit button
+    fun actionOnBtnEdit() {
+        binding.imageButtonEdit.setOnClickListener {
+            binding.cardView4.visibility = View.VISIBLE
+            binding.buttonUpdate.visibility = View.VISIBLE
+            binding.IViewCalendar.visibility = View.GONE
         }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun actionOnCBox() {
@@ -194,7 +176,7 @@ class DetailActivity : AppCompatActivity() {
     private fun selectDateOfSale() {
         binding.IViewCalendar.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                binding.tvDateSoldOutDetail.text = "$dayOfMonth/$monthOfYear/$year"
+                binding.tvDateSoldOutDetail.text = "Sold out $dayOfMonth/$monthOfYear/$year"
                 dateSale = "$dayOfMonth/$monthOfYear/$year"
 
             }, year, month, day)
@@ -202,25 +184,11 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun actionOnChip() {
-        binding.chipHospitalCreate.setOnClickListener {
-            binding.ivHospitalDetail.visibility = View.VISIBLE
-
-        }
-
-    }
-
     private fun unableViewVisibility() {
         binding.cardView4.visibility = View.GONE
         binding.buttonUpdate.visibility = View.GONE
-        binding.ivHospitalDetail.visibility = View.GONE
-        binding.ivMarketDetail.visibility = View.GONE
-        binding.ivSchoolDetail.visibility = View.GONE
-        binding.ivTransportDetail.visibility = View.GONE
-        binding.toolbar.visibility = View.GONE
 
     }
-
 
     private fun actionOnFab() {
         binding.buttonUpdate.setOnClickListener {
@@ -228,10 +196,15 @@ class DetailActivity : AppCompatActivity() {
                 updateData()
                 val property = Property(propertyId, city, price, type, surface, room, bathRoom, bedRoom, address, date, photoCover, description,
                         dateSale, propertyLat, propertyLng, agentId, agentName)
-
                 mPropertyViewModel.updateProperty(property)
 
             })
+            finish()
+        }
+    }
+
+    private fun actionOnBackBtn() {
+        binding.imageButtonBack.setOnClickListener {
             finish()
         }
     }
@@ -261,9 +234,9 @@ class DetailActivity : AppCompatActivity() {
                 agentNameEqual = it.name
                 agentName = binding.etManageDetail.text.toString()
                 if (agentNameEqual == agentName) {
-                    binding.toolbar.visibility = View.VISIBLE
+                    binding.imageButtonEdit.visibility = View.VISIBLE
                 } else {
-                    binding.toolbar.visibility = View.GONE
+                    binding.imageButtonEdit.visibility = View.GONE
                 }
             }
         })
@@ -293,11 +266,11 @@ class DetailActivity : AppCompatActivity() {
 
         }
     }
-    private fun getPhoto(propertyId: Long){
+
+    private fun getPhoto(propertyId: Long) {
         mPhotoViewModel.getPhotoByPropertyId(propertyId).observe(this, androidx.lifecycle.Observer {
             if (it != null) {
                 adapter.setProperties(it)
-                Log.e("resultObs","" + it)
 
             }
         })
@@ -326,13 +299,6 @@ class DetailActivity : AppCompatActivity() {
             }
 
         })
-        binding.frameLayoutDetailActivity.setOnClickListener {
-            val url = "https://maps.googleapis.com/maps/api/staticmap?center=$resultLatLng&markers=$resultLatLng&zoom=16&size=400x400&key=${UtilsKotlin.API_KEY}"
-            Glide.with(this)
-                    .load(url)
-                    .into(binding.fullScreenMap)
-
-        }
 
     }
 

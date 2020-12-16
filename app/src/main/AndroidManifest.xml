@@ -27,8 +27,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SearchActivity"></activity>
-        <activity android:name=".detailActivity.DescriptionDetailActivity" />
+        <activity android:name=".SearchActivity">
+
+        </activity>
+        <activity
+            android:name=".detailActivity.DescriptionDetailActivity" />
         <activity android:name=".CreateProperty" />
         <activity android:name=".auth.LoginActivity" />
         <activity android:name=".auth.AuthActivity" />
@@ -38,7 +41,8 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".detailActivity.DetailActivity"
-            android:theme="@style/AppTheme" />
+            />
+
         <activity
             android:name=".auth.SplashActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar">

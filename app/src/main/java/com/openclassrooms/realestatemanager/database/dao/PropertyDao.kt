@@ -14,7 +14,7 @@ interface PropertyDao {
     @Query("SELECT * FROM property")
     fun getAllProperty(): LiveData<List<Property>>
 
-    @Query("SELECT * FROM property WHERE property_id = :id")
+    @Query("SELECT * FROM property WHERE id = :id")
     fun getProperty(id : Long) : LiveData<Property>
 
     @Delete

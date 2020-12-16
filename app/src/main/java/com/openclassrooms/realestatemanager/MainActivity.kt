@@ -21,6 +21,7 @@ import com.openclassrooms.realestatemanager.auth.SplashActivity
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding
 import com.openclassrooms.realestatemanager.fragment.ListFragment
 import com.openclassrooms.realestatemanager.fragment.MapsFragment
+import com.openclassrooms.realestatemanager.utils.UtilsKotlin
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        UtilsKotlin.checkPermissionForImage(this)
 
         configureToolbar()
         configureDrawer()
@@ -117,6 +120,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // initialize toolBar
     private fun configureToolbar() {
         setSupportActionBar(toolbar as Toolbar?)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     // initialize drawer layout

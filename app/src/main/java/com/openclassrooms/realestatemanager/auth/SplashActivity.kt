@@ -38,11 +38,11 @@ class SplashActivity : AppCompatActivity() {
     private fun userLogged() {
         if (FirebaseAuth.getInstance().currentUser == null) {
             launchSignIn()
-            Log.e("test", "yes")
+
 
         } else {
             launchMainActivity()
-            Log.e("test", "no")
+
         }
     }
 

@@ -22,7 +22,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(listOf(repositoryAgentModule, vMLoginModule, vMAgentModule, appModule, vMPropertyModule, repositoryProperty, vMPhotoModule, repositoryPhoto))
+            modules(listOf(viewModelModule, appModule, repositoryModule ))
         }
         channelId = "RealEstateManager"
         createNotificationChannel()

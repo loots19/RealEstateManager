@@ -15,7 +15,7 @@ class FakePropertyApi {
                 override fun onCreate(@NonNull db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     val property1 = ContentValues()
-                    property1.put("property_id", 1)
+                    property1.put("id", 1)
                     property1.put("city", "Bouffémont")
                     property1.put("price", "1200000")
                     property1.put("type", "House")
@@ -35,7 +35,7 @@ class FakePropertyApi {
                     db.insert("property", OnConflictStrategy.IGNORE, property1)
 
                     val property2 = ContentValues()
-                    property2.put("property_id", 2)
+                    property2.put("id", 2)
                     property2.put("city", "Domont")
                     property2.put("price", "1000000")
                     property2.put("type", "Duplex")
@@ -56,7 +56,7 @@ class FakePropertyApi {
 
 
                     val property3 = ContentValues()
-                    property3.put("property_id", 3)
+                    property3.put("id", 3)
                     property3.put("city", "Ezanville")
                     property3.put("price", "1100000")
                     property3.put("type", "Flat")
@@ -77,7 +77,7 @@ class FakePropertyApi {
 
 
                     val property4 = ContentValues()
-                    property4.put("property_id", 4)
+                    property4.put("id", 4)
                     property4.put("city", "Ecouen")
                     property4.put("price", "1100000")
                     property4.put("type", "House")

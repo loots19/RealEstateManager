@@ -7,47 +7,29 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "property")
 data class Property(
-        @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "property_id")
-        var id: Long = 0,
-        @ColumnInfo(name = "city")
-        var city: String = "",
-        @ColumnInfo(name = "price")
-        var price: String = "",
-        @ColumnInfo(name = "type")
-        var type: String = "",
-        @ColumnInfo(name = "surface")
-        var surface: Int = 0,
-        @ColumnInfo(name = "nbr_room")
-        var nbrRoom: Int = 0,
-        @ColumnInfo(name = "nbr_bathroom")
-        var nbrBathRoom: Int,
-        @ColumnInfo(name = "nbr_bedroom")
-        var nbrBedRoom: Int = 0,
-        @ColumnInfo(name = "address")
-        var address: String = "",
-        @ColumnInfo(name = "date_entry")
-        var dateEntry: String ="",
-        @ColumnInfo(name = "photo_cover")
-        var photoCover: String,
-        @ColumnInfo(name = "description")
-        var description: String,
-        @ColumnInfo(name = "date_sale")
-        var dateSale: String = "",
-        @ColumnInfo(name = "property_lat")
-        var propertyLat: Double? = null,
-        @ColumnInfo(name = "property_lng")
-        var propertyLng : Double? = null,
-        @ColumnInfo(name = "agent_id")
-        var agentId : Int = 0,
-        @ColumnInfo(name = "agent_name")
-        var agentName : String = ""
+        @PrimaryKey(autoGenerate = true) var id: Long = 0,
+        @ColumnInfo(name = "city") var city: String = "",
+        @ColumnInfo(name = "price") var price: String = "",
+        @ColumnInfo(name = "type") var type: String = "",
+        @ColumnInfo(name = "surface") var surface: Int = 0,
+        @ColumnInfo(name = "nbr_room") var nbrRoom: Int = 0,
+        @ColumnInfo(name = "nbr_bathroom") var nbrBathRoom: Int,
+        @ColumnInfo(name = "nbr_bedroom") var nbrBedRoom: Int = 0,
+        @ColumnInfo(name = "address") var address: String = "",
+        @ColumnInfo(name = "date_entry") var dateEntry: String ="",
+        @ColumnInfo(name = "photo_cover") var photoCover: String,
+        @ColumnInfo(name = "description") var description: String,
+        @ColumnInfo(name = "date_sale") var dateSale: String = "",
+        @ColumnInfo(name = "property_lat") var propertyLat: Double? = null,
+        @ColumnInfo(name = "property_lng") var propertyLng : Double? = null,
+        @ColumnInfo(name = "agent_id") var agentId : Int = 0,
+        @ColumnInfo(name = "agent_name") var agentName : String = ""
 ){
 
         companion object{
                 fun fromContentValues(values: ContentValues) : Property{
                         val property = Property(0,"","","",0,0,0,0,"","","","","",0.0,0.0,0)
-                        if(values.containsKey("property_id"))property.id = values.getAsLong("id")
+                        if(values.containsKey("property_id"))property.id = values.getAsLong("property_id")
                         if(values.containsKey("city"))property.city = values.getAsString("city")
                         if(values.containsKey("price"))property.price = values.getAsString("price")
                         if(values.containsKey("type"))property.type = values.getAsString("type")

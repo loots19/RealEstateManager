@@ -14,13 +14,12 @@ class PhotoRepository (application: Application){
     var long: Long = 0
 
 
-
     init{
         photoDao = db.photoDao()
-        allPhoto = photoDao.getAllPhoto(long)
+        allPhoto = photoDao.getAllPhotoByProperty(long)
     }
     fun getPhotoByPropertyId(propertyId: Long): LiveData<List<Photo>>{
-        return photoDao.getAllPhoto(propertyId)
+        return photoDao.getAllPhotoByProperty(propertyId)
     }
 
     fun getAllPhoto(): LiveData<List<Photo>>{
@@ -33,7 +32,7 @@ class PhotoRepository (application: Application){
         photoDao.addPhoto(photo)
 
     }
-    fun insertPhotos(propertyId : List<Photo>) = photoDao.addPhotos(propertyId)
+    fun insertPhotos(photos : List<Photo>) = photoDao.addPhotos(photos)
 
     fun updatePhoto(photo: Photo){
         photoDao.update(photo)

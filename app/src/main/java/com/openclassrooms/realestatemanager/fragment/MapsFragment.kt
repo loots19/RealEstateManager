@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,6 +26,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.database.repositories.PropertyRepository
 import com.openclassrooms.realestatemanager.detailActivity.DetailActivity
 import com.openclassrooms.realestatemanager.detailActivity.DetailActivity.Companion.EXTRA_PROPERTY
 import com.openclassrooms.realestatemanager.model.Property
@@ -35,7 +38,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var currentLocation: Location
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var mMap: GoogleMap
+
     private val mPropertyViewModel by viewModel<PropertyViewModel>()
+
 
 
     companion object {
@@ -49,15 +54,15 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         val mapFragment = childFragmentManager.fragments[0] as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
 
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         return rootView
+
     }
 
     private fun fetchLocation() {
         if (ContextCompat.checkSelfPermission(requireActivity(),
                         Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(),
+            requestPermissions(
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),LOCATION_PERMISSION_REQUEST_CODE)
             return
         }
@@ -74,15 +79,35 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                    mMap.isMyLocationEnabled = false;
+                    fetchLocation()
+                }
+            } else {
+                Toast.makeText(activity, "Permission denied...", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         fetchLocation()
+
         mPropertyViewModel.getAllProperty().observe(this, androidx.lifecycle.Observer {
             if (it != null) {
                 generateMarker(it)
 
             }
         })
+
+
+
+
 
         mMap.setOnMarkerClickListener {
             lunchDetailActivity(it)
@@ -109,7 +134,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 marker.tag = jsonSelectedRestaurant
             } ?: Toast.makeText(this.context,"no connection",Toast.LENGTH_SHORT).show()
 
+            mPropertyViewModel.setPlace(addressLatLng.toString(),UtilsKotlin.radius)
+            Log.e("testVMMap",addressLatLng.toString())
+            testPoi()
+
         }
+
     }
 
     // ----------------------------------
@@ -121,6 +151,15 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         intent.putExtra(EXTRA_PROPERTY, property)
         startActivity(intent)
         return true
+    }
+
+
+    private fun testPoi(){
+        mPropertyViewModel.getPoiList().observe(this, Observer {
+            Log.e("resultLiData",""+ it.get(0).namePoi)
+        })
+
+
     }
 
 
