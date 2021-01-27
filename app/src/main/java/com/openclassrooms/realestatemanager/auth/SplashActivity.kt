@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
 
             // start main activity
-            userLogged()
+           launchMainActivity()
             // finish this activity
             finish()
         }, 2000)

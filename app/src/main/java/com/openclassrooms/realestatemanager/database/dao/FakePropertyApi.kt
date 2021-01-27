@@ -32,6 +32,9 @@ class FakePropertyApi {
                     property1.put("property_lng", "2.30468")
                     property1.put("agent_id", 1)
                     property1.put("agent_name", "loots")
+                    property1.put("agent_mail","loots@gmail.com")
+
+
                     db.insert("property", OnConflictStrategy.IGNORE, property1)
 
                     val property2 = ContentValues()
@@ -52,6 +55,10 @@ class FakePropertyApi {
                     property2.put("property_lng", "2.30468")
                     property2.put("agent_id", 1)
                     property2.put("agent_name", "david")
+                    property2.put("agent_mail","david@gmail.com")
+
+
+
                     db.insert("property", OnConflictStrategy.IGNORE, property2)
 
 
@@ -73,6 +80,9 @@ class FakePropertyApi {
                     property3.put("property_lng", "2.30468")
                     property3.put("agent_id", 2)
                     property3.put("agent_name", "loots")
+                    property3.put("agent_mail","loots@gmail.com")
+
+
                     db.insert("property", OnConflictStrategy.IGNORE, property3)
 
 
@@ -94,6 +104,10 @@ class FakePropertyApi {
                     property4.put("property_lng", "2.30468")
                     property4.put("agent_id", 3)
                     property4.put("agent_name", "david")
+                    property4.put("agent_mail","david@gmail.com")
+
+
+
                     db.insert("property", OnConflictStrategy.IGNORE, property4)
 
 
@@ -119,83 +133,105 @@ class FakePropertyApi {
                     db.insert("photo", OnConflictStrategy.IGNORE, photo3)
 
                     val photo4 = ContentValues()
-                    photo4.put("photo_id",4)
-                    photo4.put("photo_url",R.drawable.house1bedroom)
-                    photo4.put("name","bedroom2")
+                    photo4.put("photo_id", 4)
+                    photo4.put("photo_url", R.drawable.house1bedroom)
+                    photo4.put("name", "bedroom2")
                     photo4.put("property_id", 1)
-                    db.insert("photo",OnConflictStrategy.IGNORE, photo4)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo4)
 
 
                     val photo5 = ContentValues()
-                    photo5.put("photo_id",5)
-                    photo5.put("photo_url",R.drawable.duplex3bath)
-                    photo5.put("name","bathroom")
-                    photo5.put("property_id", 2)
-                    db.insert("photo",OnConflictStrategy.IGNORE, photo5)
+                    photo5.put("photo_id", 5)
+                    photo5.put("photo_url", R.drawable.house1)
+                    photo5.put("name", "cover")
+                    photo5.put("property_id", 1)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo5)
+
 
                     val photo6 = ContentValues()
-                    photo6.put("photo_id",6)
-                    photo6.put("photo_url",R.drawable.duplex3bed)
-                    photo6.put("name","bedroom")
+                    photo6.put("photo_id", 6)
+                    photo6.put("photo_url", R.drawable.duplex3bed)
+                    photo6.put("name", "bedroom")
                     photo6.put("property_id", 2)
-                    db.insert("photo",OnConflictStrategy.IGNORE, photo6)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo6)
 
                     val photo7 = ContentValues()
-                    photo7.put("photo_id",7)
-                    photo7.put("photo_url",R.drawable.duplex3bed2)
-                    photo7.put("name","bedroom2")
+                    photo7.put("photo_id", 7)
+                    photo7.put("photo_url", R.drawable.duplex3bed2)
+                    photo7.put("name", "bedroom2")
                     photo7.put("property_id", 2)
-                    db.insert("photo",OnConflictStrategy.IGNORE, photo7)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo7)
 
                     val photo8 = ContentValues()
-                    photo8.put("photo_id",8)
-                    photo8.put("photo_url",R.drawable.duplex3living)
-                    photo8.put("name","livingRoom")
+                    photo8.put("photo_id", 8)
+                    photo8.put("photo_url", R.drawable.duplex3living)
+                    photo8.put("name", "livingRoom")
                     photo8.put("property_id", 2)
-                    db.insert("photo",OnConflictStrategy.IGNORE, photo8)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo8)
+
+                    val photo15 = ContentValues()
+                    photo15.put("photo_id", 15)
+                    photo15.put("photo_url", R.drawable.duplex3)
+                    photo15.put("name", "cover")
+                    photo15.put("property_id", 2)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo15)
 
                     val photo9 = ContentValues()
-                    photo9.put("photo_id",9)
-                    photo9.put("photo_url",R.drawable.flatbath)
-                    photo9.put("name","bathroom")
+                    photo9.put("photo_id", 9)
+                    photo9.put("photo_url", R.drawable.flatbath)
+                    photo9.put("name", "bathroom")
                     photo9.put("property_id", 3)
-                    db.insert("photo",OnConflictStrategy.IGNORE, photo9)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo9)
 
                     val photo10 = ContentValues()
-                    photo10.put("photo_id",10)
-                    photo10.put("photo_url",R.drawable.flatbed)
-                    photo10.put("name","bedroom")
+                    photo10.put("photo_id", 10)
+                    photo10.put("photo_url", R.drawable.flatbed)
+                    photo10.put("name", "bedroom")
                     photo10.put("property_id", 3)
-                    db.insert("photo",OnConflictStrategy.IGNORE, photo10)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo10)
 
                     val photo11 = ContentValues()
-                    photo11.put("photo_id",11)
-                    photo11.put("photo_url",R.drawable.flatbed2)
-                    photo11.put("name","bedroom2")
+                    photo11.put("photo_id", 11)
+                    photo11.put("photo_url", R.drawable.flatbed2)
+                    photo11.put("name", "bedroom2")
                     photo11.put("property_id", 3)
-                    db.insert("photo",OnConflictStrategy.IGNORE, photo11)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo11)
+
+                    val photo16 = ContentValues()
+                    photo16.put("photo_id", 16)
+                    photo16.put("photo_url", R.drawable.flat)
+                    photo16.put("name", "cover")
+                    photo16.put("property_id", 3)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo16)
 
 
-                   val photo12 = ContentValues()
-                   photo12.put("photo_id",12)
-                   photo12.put("photo_url",R.drawable.house4bed)
-                   photo12.put("name","bedroom")
-                   photo12.put("property_id", 4)
-                   db.insert("photo",OnConflictStrategy.IGNORE, photo12)
+                    val photo12 = ContentValues()
+                    photo12.put("photo_id", 12)
+                    photo12.put("photo_url", R.drawable.house4bed)
+                    photo12.put("name", "bedroom")
+                    photo12.put("property_id", 4)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo12)
 
-                   val photo13 = ContentValues()
-                   photo13.put("photo_id",13)
-                   photo13.put("photo_url",R.drawable.housebed42)
-                   photo13.put("name","bedroom2")
-                   photo13.put("property_id", 4)
-                   db.insert("photo",OnConflictStrategy.IGNORE, photo13)
+                    val photo13 = ContentValues()
+                    photo13.put("photo_id", 13)
+                    photo13.put("photo_url", R.drawable.housebed42)
+                    photo13.put("name", "bedroom2")
+                    photo13.put("property_id", 4)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo13)
 
-                   val photo14 = ContentValues()
-                   photo14.put("photo_id",14)
-                   photo14.put("photo_url",R.drawable.housebath4)
-                   photo14.put("name","bathroom")
-                   photo14.put("property_id", 4)
-                   db.insert("photo",OnConflictStrategy.IGNORE, photo14)
+                    val photo14 = ContentValues()
+                    photo14.put("photo_id", 14)
+                    photo14.put("photo_url", R.drawable.housebath4)
+                    photo14.put("name", "bathroom")
+                    photo14.put("property_id", 4)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo14)
+
+                    val photo17 = ContentValues()
+                    photo17.put("photo_id", 17)
+                    photo17.put("photo_url", R.drawable.house4)
+                    photo17.put("name", "cover")
+                    photo17.put("property_id", 4)
+                    db.insert("photo", OnConflictStrategy.IGNORE, photo17)
 
 
                 }

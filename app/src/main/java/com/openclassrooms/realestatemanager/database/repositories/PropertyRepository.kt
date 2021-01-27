@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.database.repositories
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.CollectionReference
@@ -31,36 +30,49 @@ class PropertyRepository(application: Application) {
     init {
         propertyDao = db.propertyDao()
         allProperties = propertyDao.getAllProperty()
-        //  apiRequest = RetrofitRequest.getApiRequest()
+        apiRequest = RetrofitRequest.getApiRequest()
 
 
     }
 
     fun poiList(location: String, radius: Int): MutableLiveData<List<Poi>> {
-        val newData: MutableLiveData<List<Poi>> = MutableLiveData()
+        val newData = MutableLiveData<List<Poi>>()
         val apiRequest = RetrofitRequest.getApiRequest()
 
         apiRequest.getPoiFromProperty(location, radius).enqueue(object : Callback<PoiResult> {
-            override fun onResponse(call: Call<PoiResult>, response: Response<PoiResult>) {
-                if (response.body()?.PoiResult()?.results != null) {
-                    poiList = response.body() as ArrayList<Poi>
-
-                    val test = poiList
-                    Log.e("resultRepo", "" + poiList)
-
-                }
-
-            }
-
             override fun onFailure(call: Call<PoiResult>, t: Throwable) {
                 newData.value = null
-                Log.e("resultRetro", "false")
+            }
 
+            override fun onResponse(call: Call<PoiResult>, response: Response<PoiResult>) {
+                if (response.isSuccessful) {
+                    val size = response.body()?.results?.size ?: 0
+
+                    for (i in 0 until size) {
+
+                        response.body()?.let { poiResult ->
+                            val name = poiResult.results[i].types
+                            val street = poiResult.results[i].vicinity
+                            val photo = poiResult.results[i].photos?.get(0)?.photo_reference ?: ""
+                            val lat = poiResult.results[i].geometry.location.lat
+                            val lng = poiResult.results[i].geometry.location.lng
+                            val poi = Poi(0, name.toString(),street, photo, lat, lng)
+                            poiList.add(poi)
+
+                            newData.value = poiList
+
+
+                        }
+
+                    }
+                }
             }
 
 
         })
         return newData
+
+
     }
 
 

@@ -86,8 +86,8 @@
     <string name="tv_agent">Agent</string>
     <string name="tv_media">Media</string>
     <string name="tv_photo_cover">Photo Cover</string>
-    <string name="tv_take_picture">Take a picture</string>
-    <string name="tv_from_storage">From storage</string>
+    <string name="tv_take_picture">Take picture</string>
+    <string name="tv_choose_picture">Choose picture</string>
     <string name="tv_description">Description</string>
     <string name="et_price">Price</string>
     <string name="et_city">City</string>

@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            tools:context=".FilterActivity">
+
+
+            <ImageView
+                android:id="@+id/imageButtonBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:tint="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvHouseFilter"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="House"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageButtonBack" />
+
+            <TextView
+                android:id="@+id/tvFlatFilter"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="Flat"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvHouseFilter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvHouseFilter"
+                app:layout_constraintTop_toTopOf="@+id/tvHouseFilter" />
+
+            <TextView
+                android:id="@+id/tvDuplexFilter"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="Duplex"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvHouseFilter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvHouseFilter" />
+
+            <TextView
+                android:id="@+id/tvPriceRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Price Range"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHouseFilter" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etPriceMin"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:theme="@style/TextInputLayoutStyle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/colorAccent"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPriceRange">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Min"
+                    android:inputType="numberSigned"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etPriceMax"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextInputLayoutStyle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/colorAccent"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/etPriceMin">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Max"
+                    android:inputType="numberSigned"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Bed"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etPriceMin" />
+
+
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/textView13"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+            <TextView
+                android:id="@+id/tvBed1Filter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvBed2Filter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+            <TextView
+                android:id="@+id/tvBed2Filter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBed1Filter"
+                app:layout_constraintEnd_toStartOf="@+id/tvBed3Filter"
+                app:layout_constraintTop_toTopOf="@+id/tvBed1Filter" />
+
+            <TextView
+                android:id="@+id/tvBed3Filter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBed2Filter"
+                app:layout_constraintEnd_toStartOf="@+id/tvBed4Filter"
+                app:layout_constraintTop_toTopOf="@+id/tvBed2Filter" />
+
+            <TextView
+                android:id="@+id/tvBed4Filter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="4"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBed3Filter"
+                app:layout_constraintEnd_toStartOf="@+id/tvBed5Filter"
+                app:layout_constraintTop_toTopOf="@+id/tvBed3Filter" />
+
+            <TextView
+                android:id="@+id/tvBed5Filter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBed4Filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvBed4Filter" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvBathFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Bath"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linear1" />
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/tvBathFilter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tvBath1Filter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvBathFilter" />
+
+            <TextView
+                android:id="@+id/tvBath2Filter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBath1Filter"
+                app:layout_constraintStart_toEndOf="@+id/tvBath1Filter"
+                app:layout_constraintTop_toTopOf="@+id/tvBath1Filter" />
+
+            <TextView
+                android:id="@+id/tvBath3Filter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBath2Filter"
+                app:layout_constraintStart_toEndOf="@+id/tvBath2Filter"
+                app:layout_constraintTop_toTopOf="@+id/tvBath2Filter" />
+
+            <TextView
+                android:id="@+id/tvBath4Filter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="4"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBath3Filter"
+                app:layout_constraintStart_toEndOf="@+id/tvBath3Filter"
+                app:layout_constraintTop_toTopOf="@+id/tvBath3Filter" />
+
+            <TextView
+                android:id="@+id/tvBath5Filter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBath4Filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvBath4Filter"
+                app:layout_constraintTop_toTopOf="@+id/tvBath4Filter" />
+
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Surface"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linear2" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etSquareMinFilter"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextInputLayoutStyle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/colorAccent"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Min"
+                    android:inputType="numberSigned"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etSquareMaxFilter"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextInputLayoutStyle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/colorAccent"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/etSquareMinFilter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Max"
+                    android:inputType="numberSigned"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Location"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etSquareMinFilter" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etCityFilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextInputLayoutStyle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/colorAccent"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="City"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/tvPoiFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Point Of Interest"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etCityFilter" />
+
+
+            <ImageView
+                android:id="@+id/ivTransportFilter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_filter"
+                android:src="@drawable/ic_train_black_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPoiFilter" />
+
+            <ImageView
+                android:id="@+id/ivHospitalFilter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:background="@drawable/btn_filter"
+                android:src="@drawable/ic_local_hospital_black_24dp"
+                app:layout_constraintStart_toEndOf="@id/ivTransportFilter"
+                app:layout_constraintTop_toTopOf="@+id/ivTransportFilter" />
+
+            <ImageView
+                android:id="@+id/ivSchoolFilter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:background="@drawable/btn_filter"
+                android:src="@drawable/ic_school_black_24dp"
+                app:layout_constraintStart_toEndOf="@id/ivHospitalFilter"
+                app:layout_constraintTop_toTopOf="@+id/ivTransportFilter" />
+
+            <ImageView
+                android:id="@+id/ivMarketFilter"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:background="@drawable/btn_filter"
+                android:src="@drawable/shopping_cart"
+                app:layout_constraintStart_toEndOf="@id/ivSchoolFilter"
+                app:layout_constraintTop_toTopOf="@+id/ivTransportFilter" />
+
+            <TextView
+                android:id="@+id/tvDateFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Date"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivTransportFilter" />
+
+            <TextView
+                android:id="@+id/tvDateMinFilter"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDateFilter" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MIN"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/tvDateMinFilter"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvDateMaxFilter"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_filter"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDateFilter" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Max"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/tvDateMaxFilter"
+                app:layout_constraintStart_toStartOf="@id/tvDateMaxFilter"/>
+
+            <TextView
+                android:id="@+id/btnFilter"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btn_filter"
+                android:text="FILTER"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDateMinFilter" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

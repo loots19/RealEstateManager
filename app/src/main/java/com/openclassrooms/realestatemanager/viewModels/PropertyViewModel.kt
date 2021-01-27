@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.viewModels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -9,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.openclassrooms.realestatemanager.database.repositories.PropertyRepository
 import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.Poi
+import com.openclassrooms.realestatemanager.model.PoiResult
 import com.openclassrooms.realestatemanager.model.Property
 import java.util.*
 
@@ -65,17 +65,14 @@ class PropertyViewModel(propertyRepository: PropertyRepository, application: App
         for (p in photos) {
             p.propertyId = long
         }
+
+
     }
 
     fun updateProperty(property: Property) {
         propertyRepository.updateProperty(property)
     }
 
-    fun getPoiList(location: String, radius: Int): LiveData<List<Poi>> {
-        Log.e("tesVM", "pass")
-        return propertyRepository.poiList(location, radius)
-
-    }
 
 
 }

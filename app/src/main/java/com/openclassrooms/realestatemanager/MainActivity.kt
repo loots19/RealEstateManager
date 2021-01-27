@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, fragment.javaClass.simpleName)
                     .commit()
         }
+
     }
 
 
@@ -109,7 +110,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.search -> {
-                startActivity(Intent(this@MainActivity, SearchActivity::class.java))
+                startActivity(Intent(this@MainActivity, FilterActivity::class.java))
 
             }
 

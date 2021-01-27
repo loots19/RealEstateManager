@@ -23,11 +23,11 @@
         android:id="@+id/imageButtonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:padding="10dp"
         android:src="@drawable/ic_arrow_back_black_24dp"
+        android:tint="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -22,16 +22,20 @@ import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.CreateProperty.Companion.PERMISSION_CODE_READ
 import com.openclassrooms.realestatemanager.CreateProperty.Companion.PERMISSION_CODE_WRITE
 import com.openclassrooms.realestatemanager.CreateProperty.Companion.REQUEST_PERMISSION
-import com.openclassrooms.realestatemanager.R
+
 import java.io.IOException
+import android.R
+
+
 
 class UtilsKotlin {
     companion object {
 
 
         const val API_KEY = BuildConfig.API_KEY
-        const val baseUrl:String = "https://maps.googleapis.com/maps/api/"
-        const val radius:Int = 50000
+        const val baseUrl:String = "https://maps.googleapis.com/maps/"
+        const val radius:Int = 5000
+        const val BASE_URL_PHOTO = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="
 
         fun verifyAvailableNetwork(activity: AppCompatActivity): Boolean {
             val connectivityManager = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -42,7 +46,7 @@ class UtilsKotlin {
 
         // draw marker
         fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor {
-            val background = ContextCompat.getDrawable(context, R.drawable.ic_location)
+            val background = ContextCompat.getDrawable(context, com.openclassrooms.realestatemanager.R.drawable.ic_location)
             background!!.setBounds(0, 0, background.intrinsicWidth, background.intrinsicHeight)
             val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
             vectorDrawable!!.setBounds(24, 24, vectorDrawable.intrinsicWidth + 12, vectorDrawable.intrinsicHeight + 12)

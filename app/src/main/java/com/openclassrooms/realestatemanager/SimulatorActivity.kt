@@ -43,8 +43,8 @@ class SimulatorActivity : AppCompatActivity() {
     private fun actionOnSkAmount() {
         binding.seekBarAmount.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
-                binding.tvProgressAmount.text = ("" + progress * 1000 + "" + " " + getString(R.string.dollars))
-                valueAmount = (progress * 1000).toString()
+                binding.tvProgressAmount.text = ("" + progress * 10000 + "" + " " + getString(R.string.dollars))
+                valueAmount = (progress * 10000).toString()
 
             }
 

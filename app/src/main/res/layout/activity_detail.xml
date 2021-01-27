@@ -12,18 +12,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-
             tools:context=".detailActivity.DetailActivity">
 
 
             <ImageView
                 android:id="@+id/iv_plain_Detail"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="300dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
 
             <ImageView
                 android:id="@+id/imageButtonBack"
@@ -56,10 +56,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/recycler_view_layout_height"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_plain_Detail"
-                tools:listitem="@layout/item_rv_detail" />
+                tools:listitem="@layout/item_rv_create" />
 
             <ImageView
                 android:id="@+id/imageView_type"
@@ -167,6 +166,7 @@
                 android:id="@+id/view7"
                 android:layout_width="350dp"
                 android:layout_height="1dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintBottom_toTopOf="@+id/et_nbrBed_detail"
@@ -179,10 +179,11 @@
                 android:layout_width="@dimen/image_view_layout_width"
                 android:layout_height="@dimen/image_view_layout_height"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="30dp"
                 android:src="@drawable/real_estate_agent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView_dollar" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView_dollar"
+                app:layout_constraintBottom_toBottomOf="@id/et_mail_detail"/>
 
             <EditText
                 android:id="@+id/et_manage_detail"
@@ -201,7 +202,6 @@
                 android:layout_width="@dimen/text_view_width"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="mail"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/et_manage_detail"
                 app:layout_constraintStart_toStartOf="@+id/et_manage_detail"
@@ -213,7 +213,7 @@
                 android:layout_width="@dimen/image_view_layout_width"
                 android:layout_height="@dimen/image_view_layout_height"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="80dp"
                 android:src="@drawable/rooms"
                 android:tint="@color/colorAccent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -229,6 +229,7 @@
                 android:inputType="numberSigned"
                 android:maxLines="1"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView_nbr_rooms"
                 app:layout_constraintStart_toEndOf="@+id/imageView_nbr_rooms"
                 app:layout_constraintTop_toTopOf="@+id/imageView_nbr_rooms" />
@@ -253,6 +254,7 @@
                 android:inputType="numberSigned"
                 android:maxLines="1"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView_nbr_bed"
                 app:layout_constraintStart_toEndOf="@+id/imageView_nbr_bed"
                 app:layout_constraintTop_toTopOf="@+id/imageView_nbr_bed" />
@@ -278,6 +280,7 @@
                 android:inputType="numberSigned"
                 android:maxLines="1"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView_nbr_bath"
                 app:layout_constraintStart_toEndOf="@+id/imageView_nbr_bath"
                 app:layout_constraintTop_toTopOf="@+id/imageView_nbr_bath" />
@@ -302,6 +305,7 @@
                 android:inputType="numberSigned"
                 android:maxLines="1"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView_surface"
                 app:layout_constraintStart_toEndOf="@+id/imageView_surface"
                 app:layout_constraintTop_toTopOf="@+id/imageView_surface" />
@@ -322,117 +326,173 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@android:color/black"
                 android:text="@string/tv_description_detail"
                 android:textSize="@dimen/text_view_text_size"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_nbr_bed" />
 
+            <TextView
+                android:id="@+id/tv_Location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="location"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_view_text_size"
+
+                app:layout_constraintStart_toStartOf="@+id/frameLayout_detail_activity"
+                app:layout_constraintTop_toBottomOf="@+id/tv_desc_detail" />
+
 
             <ImageView
                 android:id="@+id/frameLayout_detail_activity"
-                android:layout_width="@dimen/frame_layout_width"
-                android:layout_height="@dimen/frame_layout_width"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="30dp"
-                app:layout_constraintBottom_toTopOf="@+id/et_manage_detail"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_address_detail" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Location" />
 
             <com.borjabravo.readmoretextview.ReadMoreTextView
                 android:id="@+id/tv_desc_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                app:colorClickableText="#3F51B5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9"
-                app:layout_constraintBottom_toBottomOf="@id/cardView4"/>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView4"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="4dp"
-                app:layout_constraintBottom_toBottomOf="@id/frameLayout_detail_activity"
-                app:layout_constraintBottom_toTopOf="@id/button_update"
+                android:layout_marginBottom="30dp"
+                android:textSize="16sp"
+                app:colorClickableText="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_desc_detail">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SoldOut"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:id="@+id/CheckBox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:buttonTint="@color/colorAccent"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView5"
-                        app:layout_constraintStart_toEndOf="@+id/textView5"
-                        app:layout_constraintTop_toTopOf="@+id/textView5" />
-
-                    <ImageView
-                        android:id="@+id/IViewCalendar"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/calendar"
-                        android:tint="@color/colorAccent"
-                        app:layout_constraintBottom_toBottomOf="@+id/CheckBox"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/CheckBox"
-                        app:layout_constraintTop_toTopOf="@+id/CheckBox"
-                        tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/tv_poi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Point of interest"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_view_text_size"
+                app:layout_constraintStart_toStartOf="@+id/tv_desc_detail"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout_detail_activity" />
 
 
-                    <TextView
-                        android:id="@+id/tv_date_sold_out_detail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/text_view_height"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/colorAccent"
-                        app:layout_constraintEnd_toEndOf="@+id/CheckBox"
-                        app:layout_constraintStart_toStartOf="@+id/textView5"
-                        app:layout_constraintTop_toBottomOf="@+id/IViewCalendar" />
+            <ImageView
+                android:id="@+id/iv_school_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_school_black_24dp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_poi"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tv_poi"
+                app:layout_constraintTop_toBottomOf="@+id/tv_poi" />
+
+            <ImageView
+                android:id="@+id/iv_transport_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_train_black_24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_school_detail"
+                app:layout_constraintStart_toEndOf="@+id/iv_school_detail"
+                app:layout_constraintTop_toTopOf="@+id/iv_school_detail" />
+
+            <ImageView
+                android:id="@+id/iv_hospital_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_local_hospital_black_24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_transport_detail"
+                app:layout_constraintStart_toEndOf="@+id/iv_transport_detail"
+                app:layout_constraintTop_toTopOf="@+id/iv_transport_detail" />
+
+            <ImageView
+                android:id="@+id/iv_market_detail"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/shopping_cart"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_hospital_detail"
+                app:layout_constraintStart_toEndOf="@+id/iv_hospital_detail"
+                app:layout_constraintTop_toTopOf="@+id/iv_hospital_detail" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/CheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorAccent"
+                android:layout_marginBottom="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView5"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+
+
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/button_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:layout_marginBottom="60dp"
                 android:src="@drawable/ic_edit_black_24dp"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp"
                 app:backgroundTint="@null"
-                app:layout_constraintBottom_toBottomOf="parent"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/IViewCalendar"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:tint="@color/colorAccent" />
+
+
+
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:text="SoldOut"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_market_detail"
+                    app:layout_constraintBottom_toTopOf="@id/CheckBox"/>
+
+
+
+                <ImageView
+                    android:id="@+id/IViewCalendar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/calendar"
+                    android:tint="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/CheckBox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/CheckBox"
+                    app:layout_constraintTop_toTopOf="@+id/CheckBox"
+                    tools:ignore="ContentDescription" />
+
+
+            <TextView
+                android:id="@+id/tv_date_sold_out_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorAccent"
+
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_convert"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView_convert"
+                app:layout_constraintTop_toTopOf="@+id/imageView_convert" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

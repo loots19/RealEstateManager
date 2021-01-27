@@ -18,8 +18,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
-import com.openclassrooms.realestatemanager.detailActivity.DetailAdapter
 import com.openclassrooms.realestatemanager.koin.App
 import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.Property
@@ -39,6 +39,7 @@ class CreateProperty : AppCompatActivity() {
     private val mPropertyViewModel by viewModel<PropertyViewModel>()
     private val mPhotoViewModel by viewModel<PhotoViewModel>()
 
+
     private lateinit var binding: ActivityAddPropertyBinding
     private var type: String = ""
     private var surface: Int = 0
@@ -53,6 +54,7 @@ class CreateProperty : AppCompatActivity() {
     private var address: String = ""
     private var date: String = ""
     private var agentName: String = ""
+    private var agentMail: String = ""
     private var description: String = ""
     private var photoCover: String = ""
     private var city: String = ""
@@ -61,10 +63,11 @@ class CreateProperty : AppCompatActivity() {
     private var photoId: Long = 0
     private var photoUrl: String = ""
 
+
     private var c = Calendar.getInstance()
     private var year = c.get(Calendar.YEAR)
     private var month = c.get(Calendar.MONTH)
-    var day = c.get(Calendar.DAY_OF_MONTH)
+    private var day = c.get(Calendar.DAY_OF_MONTH)
 
     companion object {
         const val REQUEST_PERMISSION = 100
@@ -76,10 +79,11 @@ class CreateProperty : AppCompatActivity() {
     private val REQUEST_PICK_IMAGE = 2
     lateinit var notificationManager: NotificationManagerCompat
     lateinit var currentPhotoPath: String
+    lateinit var adapter: CreateAdapter
+
 
     private val photo = ArrayList<Photo>()
     private var photos: MutableList<Photo> = mutableListOf()
-    private val propertyList = ArrayList<Property>()
 
 
     @SuppressLint("WrongConstant")
@@ -87,9 +91,7 @@ class CreateProperty : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_property)
 
-
         UtilsKotlin.checkPermission(this)
-
 
         selectDateOfEntry()
         takePhoto()
@@ -99,9 +101,8 @@ class CreateProperty : AppCompatActivity() {
         selectType()
 
 
-        binding.rvPhotoCreate.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
 
-
+        binding.rvPhotoCreate.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false) as RecyclerView.LayoutManager?
         //initialize notification manager
         notificationManager = NotificationManagerCompat.from(this)
 
@@ -189,12 +190,14 @@ class CreateProperty : AppCompatActivity() {
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 uri = (currentPhotoPath)
                 photoUrl = uri
-
-                galleryAddPic()
                 alertDialogPhoto()
-                val adapter = DetailAdapter(photo) {
+                galleryAddPic()
+
+
+                adapter = CreateAdapter(photo) {
                 }
                 binding.rvPhotoCreate.adapter = adapter
+
                 adapter.notifyDataSetChanged()
 
             } else if (requestCode == REQUEST_PICK_IMAGE) {
@@ -202,23 +205,24 @@ class CreateProperty : AppCompatActivity() {
                 photoUrl = uri
                 alertDialogPhoto()
 
-                val adapter = DetailAdapter(photo) {
+
+                adapter = CreateAdapter(photo) {
                 }
                 binding.rvPhotoCreate.adapter = adapter
                 adapter.notifyDataSetChanged()
             }
-        }
 
-        val adapter = DetailAdapter(photo) { item ->
+        }
+        val adapter = CreateAdapter(photo) { item ->
             alertDAddPhoto()
             photoCover = item.urlPhoto
 
         }
         binding.rvPhotoCreate.adapter = adapter
-
         adapter.notifyDataSetChanged()
 
     }
+
 
     @Throws(IOException::class)
     private fun createImageFile(): File {
@@ -246,7 +250,8 @@ class CreateProperty : AppCompatActivity() {
         mAgentViewModel.getAgent().observe(this, androidx.lifecycle.Observer { it ->
             if (it != null) {
                 agentName = it.name
-                binding.tvAgentCreate.text = agentName
+                binding.tvAgentCreate.editText?.setText(agentName)
+                agentMail = it.email
             }
         })
     }
@@ -254,7 +259,7 @@ class CreateProperty : AppCompatActivity() {
     private fun actionOnFab() {
         binding.floatingActionButton.setOnClickListener {
             // createNotification()
-            addProperty()
+            getAllInfoToCreate()
         }
     }
 
@@ -266,7 +271,7 @@ class CreateProperty : AppCompatActivity() {
         val builder = NotificationCompat.Builder(this, App.channelId)
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle(title)
-                .setContentText("You have just created a property")
+                .setContentText("your property to be added")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setColor(Color.BLUE)
@@ -276,43 +281,102 @@ class CreateProperty : AppCompatActivity() {
         notificationManager.notify(1, builder)
     }
 
-    private fun addProperty() {
-        getAllInfoToCreate()
-    }
 
-    private fun getAllInfoToCreate() {
-        if (binding.etSurfaceCreate.text.isEmpty() || binding.etRoomCreate.text.isEmpty() || binding.etBathroomCreate.text.isEmpty()
-                || binding.etBedroomCreate.text.isEmpty() || binding.etAddressCreate.text.isEmpty() || binding.tvDateCreate.text.isEmpty()
-                || binding.tvAgentCreate.text.isEmpty() || binding.etDescriptionCreate.text.isEmpty() || binding.etPriceCreate.text.isEmpty()
-                || binding.etCityCreate.text.isEmpty()) {
-            Toast.makeText(this, "you must complete all values", Toast.LENGTH_LONG).show()
+    private fun getAllInfoToCreate(): Boolean {
+        var isvalid = true
+
+        if (binding.etSurfaceCreate.editText?.text.toString().isEmpty()) {
+            binding.etSurfaceCreate.isErrorEnabled = true
+            binding.etSurfaceCreate.error = "Field can't be empty"
+            isvalid = false
         } else {
-            surface = binding.etSurfaceCreate.text.toString().toInt()
-            room = binding.etRoomCreate.text.toString().toInt()
-            bathRoom = binding.etBathroomCreate.text.toString().toInt()
-            bedRoom = binding.etBedroomCreate.text.toString().toInt()
-            address = binding.etAddressCreate.text.toString()
-            date = binding.tvDateCreate.text.toString()
-            agentName = binding.tvAgentCreate.text.toString()
-            description = binding.etDescriptionCreate.text.toString()
-            price = binding.etPriceCreate.text.toString()
-            agentName = binding.tvAgentCreate.text.toString()
-            city = binding.etCityCreate.text.toString()
-
-            createPropertyBdd()
-
-
+            binding.etSurfaceCreate.isErrorEnabled = false
+            surface = binding.etSurfaceCreate.editText?.text.toString().toInt()
         }
+        if (binding.etRoomCreate.editText?.text.toString().isEmpty()) {
+            binding.etRoomCreate.isErrorEnabled = true
+            binding.etRoomCreate.error = "Field can't be empty"
+            isvalid = false
+        } else {
+            binding.etRoomCreate.isErrorEnabled = false
+            room = binding.etRoomCreate.editText?.text.toString().toInt()
+        }
+        if (binding.etBathroomCreate.editText?.text.toString().isEmpty()) {
+            binding.etBathroomCreate.isErrorEnabled = true
+            binding.etBathroomCreate.error = "Field can't be empty"
+            isvalid = false
+        } else {
+            binding.etBathroomCreate.isErrorEnabled = false
+            bathRoom = binding.etBathroomCreate.editText?.text.toString().toInt()
+        }
+        if (binding.etBedroomCreate.editText?.text.toString().isEmpty()) {
+            binding.etBedroomCreate.isErrorEnabled = true
+            binding.etBedroomCreate.error = "Field can't be empty"
+            isvalid = false
+        } else {
+            binding.etBedroomCreate.isErrorEnabled = false
+            bedRoom = binding.etBedroomCreate.editText?.text.toString().toInt()
+        }
+        if (binding.etAddressCreate.editText?.text.toString().isEmpty()) {
+            binding.etAddressCreate.isErrorEnabled = true
+            binding.etAddressCreate.error = "Field can't be empty"
+            isvalid = false
+        } else {
+            binding.etAddressCreate.isErrorEnabled = false
+            address = binding.etAddressCreate.editText?.text.toString()
+        }
+        if (binding.tvDateCreate.text.toString().isEmpty()) {
+            binding.tvDateCreate.error = "Field can't be empty"
+
+        } else {
+            date = binding.tvDateCreate.text.toString()
+        }
+        if (binding.tvAgentCreate.editText?.text.toString().isEmpty()) {
+            binding.tvAgentCreate.isErrorEnabled = true
+            binding.tvAgentCreate.error = "Field can't be empty"
+            isvalid = false
+        } else {
+            binding.tvAgentCreate.isErrorEnabled = false
+            agentName = binding.tvAgentCreate.editText?.text.toString()
+        }
+        if (binding.etDescriptionCreate.editText?.text.toString().isEmpty()) {
+            binding.etDescriptionCreate.isErrorEnabled = true
+            binding.etDescriptionCreate.error = "Field can't be empty"
+            isvalid = false
+        } else {
+            binding.etDescriptionCreate.isErrorEnabled = false
+            description = binding.etDescriptionCreate.editText?.text.toString()
+        }
+        if (binding.etPriceCreate.editText?.text.toString().isEmpty()) {
+            binding.etPriceCreate.isErrorEnabled = true
+            binding.etPriceCreate.error = "Field can't be empty"
+            isvalid = false
+        } else {
+            binding.etPriceCreate.isErrorEnabled = false
+            price = binding.etPriceCreate.editText?.text.toString()
+        }
+        if (binding.etCityCreate.editText?.text.toString().isEmpty()) {
+            binding.etCityCreate.isErrorEnabled = true
+            binding.etCityCreate.error = "Field can't be empty"
+            isvalid = false
+        } else {
+            binding.etCityCreate.isErrorEnabled = false
+            city = binding.etCityCreate.editText?.text.toString()
+        }
+        if (isvalid) {
+            createPropertyBdd()
+        }
+        return isvalid
+
+
     }
 
     // create in bdd and save in fireBase
     private fun createPropertyBdd() {
         val property = Property(propertyId, city, price, type, surface, room, bathRoom, bedRoom, address, date, photoCover, description,
-                "", propertyLat, propertyLng, agentId, agentName)
-
+                "", propertyLat, propertyLng, agentId, agentName, agentMail)
         mPropertyViewModel.createProperty(property, photos)
         mPhotoViewModel.addAllPhotos(photos)
-
         finish()
     }
 
@@ -350,8 +414,11 @@ class CreateProperty : AppCompatActivity() {
                     android.R.string.no, Toast.LENGTH_SHORT).show()
         }
         builder.show()
+
     }
+
 }
+
 
 
 

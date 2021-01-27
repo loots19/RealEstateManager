@@ -252,7 +252,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/tv_bottom_conversion"
-        android:textColor="@color/colorAccent"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/tv_size_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
